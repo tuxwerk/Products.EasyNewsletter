@@ -76,6 +76,10 @@ msgstr ""
 msgid "Customizations"
 msgstr ""
 
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:23
+msgid "Date"
+msgstr ""
+
 #: EasyNewsletter/tests/test_vocab_output_templates.py:31
 msgid "Default output template"
 msgstr ""
@@ -356,6 +360,7 @@ msgstr ""
 msgid "Edit Newsletter portlet"
 msgstr "Editar portlet de newsletter"
 
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:24
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:80
 msgid "Email"
 msgstr "Email"
@@ -365,8 +370,16 @@ msgstr "Email"
 msgid "Email existed, updated subscriber."
 msgstr ""
 
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:26
+msgid "Error Message"
+msgstr ""
+
 #: EasyNewsletter/views/newsletter_subscribers.pt:32
 msgid "Export"
+msgstr ""
+
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:38
+msgid "Failed"
 msgstr ""
 
 #: EasyNewsletter/portlets/subscriber.pt:33
@@ -505,6 +518,10 @@ msgstr "Infomr aqui seu arquivo CSV."
 msgid "Settings"
 msgstr ""
 
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:25
+msgid "Status"
+msgstr ""
+
 #: EasyNewsletter/views/newsletter_subscribers.pt:40
 msgid "Subscriber Search"
 msgstr ""
@@ -521,6 +538,14 @@ msgstr "Lista de assinantes"
 #: EasyNewsletter/viewlets/newsletter_actions.pt:31
 msgid "Subscribers"
 msgstr "Assinantes"
+
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:37
+msgid "Successful"
+msgstr ""
+
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:48
+msgid "Successfully sent emails will not be send out again unless you reset the statistics."
+msgstr ""
 
 msgid "Tester"
 msgstr ""
@@ -683,10 +708,25 @@ msgstr "Não há esboços."
 msgid "easynewsletter_nonmasters_label"
 msgstr ""
 
+#. Default: "There are no statistics available."
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:10
+msgid "easynewsletter_nonrecords_label"
+msgstr ""
+
 #. Default: "There are no subscribers."
 #: EasyNewsletter/views/newsletter_subscribers.pt:58
 msgid "easynewsletter_nosubscribers_label"
 msgstr "Não há assinantes"
+
+#. Default: "A total of ${total} emails have been sent, ${successful} have been successful and ${failed} have been failed."
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:17
+msgid "easynewsletter_records_label"
+msgstr ""
+
+#. Default: "Reset statistics"
+#: EasyNewsletter/views/newsletter_issue_statistics.pt:49
+msgid "easynewsletter_reset_statistics_button"
+msgstr ""
 
 #. Default: "Send Newsletter"
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:115

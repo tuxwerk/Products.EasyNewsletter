@@ -73,3 +73,5 @@ def update_locale():
     _rebuild(domain='plone', target_path=os.path.join(target_path, 'profiles'))
     # _filter(domain=package_domain, filterdomain='plone')
     _sync(domain='plone')
+
+update_locale()
