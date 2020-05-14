@@ -273,22 +273,22 @@ msgstr ""
 #. Default: "Sender address of the newsletter email. If you let this field empty, the default sender email address will be used."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
 msgid "EasyNewsletter_help_senderEmailForm"
-msgstr "Absenderadresse der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird die voreingestellte E-Mail-Adresse verwendet."
+msgstr "Falls Sie dieses Feld frei lassen, wird die voreingestellte E-Mail-Adresse verwendet."
 
 #. Default: "Sender name of the newsletter email. If you let this field empty, the default sender name will be used."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:27
 msgid "EasyNewsletter_help_senderNameForm"
-msgstr "Absendername der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird der voreingestellte Name verwendet."
+msgstr "Falls Sie dieses Feld frei lassen, wird der voreingestellte Name verwendet."
 
 #. Default: "Subject of the newsletter email. If you let this field empty, the title of the newsletter will be used."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:65
 msgid "EasyNewsletter_help_subject"
-msgstr "Thema der Newsletter-E-Mail. Falls Sie dieses Feld frei lassen, wird der Titel des Newsletters verwendet."
+msgstr "Falls Sie dieses Feld frei lassen, wird der Titel des Newsletters verwendet."
 
 #. Default: "Test email. If you let this field empty, the default test email address will be used."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:84
 msgid "EasyNewsletter_help_testreceiverForm"
-msgstr "E-Mail-Adresse, die zum Test des Newsletters verwendet wird. Falls Sie diese Feld leer lassen, wird die voreingestellt E-Mail-Adresse verwendet."
+msgstr "Falls Sie diese Feld leer lassen, wird die voreingestellt E-Mail-Adresse verwendet."
 
 #. Default: "Email"
 #: EasyNewsletter/content/newsletter_subscriber.py:42
