@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-12-13 19:38+0000\n"
+"POT-Creation-Date: 2020-05-14 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,15 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
-msgstr "Aggregiere Inhalte"
+msgstr "Inhalte sammeln"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
-msgstr "Als Entwurf kopieren"
+msgstr "Als Entwurf speichern"
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
-msgstr "Als Vorlage kopieren"
+msgstr "Als Vorlage speichern"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
@@ -57,11 +57,15 @@ msgstr "Wird versendet"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sending Completed"
-msgstr "Versand"
+msgstr "Versand erledigt"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
-msgstr "Versand"
+msgstr "Versendet"
+
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+msgid "View Statistics"
+msgstr "Statistik"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Workflow for an EasyNewsletter Issue"
@@ -70,7 +74,7 @@ msgstr "Arbeitsablauf einer Newsletterausgabe"
 #. Default: "Portlet to add subscribers."
 #: EasyNewsletter/profiles/default/portlets.xml
 msgid "description_newsletter_subscriber_portlet"
-msgstr "Portlet zum Anmelden an einen Newsletter"
+msgstr "Portlet für Newsletter-Anmeldung"
 
 #. Default: "Newsletter subscriber portlet"
 #: EasyNewsletter/profiles/default/portlets.xml

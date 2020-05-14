@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: 2019-12-13 19:38+0000\n"
+"POT-Creation-Date: 2020-05-14 16:28+0000\n"
 "PO-Revision-Date: 2015-07-12 03:05-0430\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
-msgstr "Contenido agregado"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
-msgstr "Copiar como borrador"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
-msgstr "Copiar como maestra"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
@@ -66,6 +66,10 @@ msgstr "Envió completado"
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
 msgstr "Enviado"
+
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+msgid "View Statistics"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Workflow for an EasyNewsletter Issue"

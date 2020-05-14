@@ -2,7 +2,7 @@
 <object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     name="Newsletter Subscriber"
     meta_type="Dexterity FTI"
-    i18n:domain="Products.EasyNewsletter">
+    i18n:domain="EasyNewsletter">
 
   <!-- Basic properties -->
   <property

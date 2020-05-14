@@ -2,7 +2,7 @@
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  i18n:domain="Products.EasyNewsletter"
+  i18n:domain="EasyNewsletter"
   metal:use-macro="context/main_template/macros/master">
   <body>
     <metal:block fill-slot="content-core">
@@ -19,22 +19,19 @@
           tal:attributes="action python:view.addTokenToUrl(context.absolute_url() + '/++add++Newsletter%20Subscriber')">
           <input type="submit"
             value="Add subscriber"
-            i18n:attributes="value"
-            i18n:translate="add_subscriber" />
+            i18n:attributes="value" />
         </form>
         <form method="get"
           tal:attributes="action string:${context/absolute_url}/subscribers-upload">
           <input type="submit"
-            value="Import subscriber"
-            i18n:attributes="value"
-            i18n:translate="import_subscriber" />
+            value="Import"
+            i18n:attributes="value" />
         </form>
         <form method="get"
           tal:attributes="action string:${context/absolute_url}/subscribers-download">
           <input type="submit"
-            value="Export subscriber"
-            i18n:attributes="value"
-            i18n:translate="export_subscriber" />
+            value="Export"
+            i18n:attributes="value" />
         </form>
       </nav>
 
@@ -42,8 +39,8 @@
           <fieldset>
             <legend i18n:translate="">Subscriber Search</legend>
             <p class="discreet"
-              i18n:translate="subscribers_search_note">
-                  This search affects only local subscribers, not those coming from external sources.
+              i18n:translate="">
+                 This search affects only local subscribers, not those coming from external sources.
             </p>
             <form tal:attributes="action view/__name__" class="fullwith">
               <input type="text"
@@ -144,8 +141,6 @@
             </tal:subscriber>
           </table>
 
-          <div metal:use-macro="here/batch_macros/macros/navigation" />
-
           <div class="formControls">
             <tal:if condition="subscribers">
               <input type="submit"
@@ -156,6 +151,8 @@
             </tal:if>
           </div>
         </form>
+
+        <div metal:use-macro="here/batch_macros/macros/navigation" />
 
       </metal:main>
 

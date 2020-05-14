@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-12-13 19:38+0000\n"
+"POT-Creation-Date: 2020-05-14 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Aggregate content"
-msgstr "Inhoud samenvoegen"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as draft"
-msgstr "Kopieer als concept"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "Copy as master"
-msgstr "Kopieer als master"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Draft"
@@ -63,6 +63,10 @@ msgstr "Versturen afgerond"
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
 msgstr "Verstuurd"
+
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+msgid "View Statistics"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Workflow for an EasyNewsletter Issue"
