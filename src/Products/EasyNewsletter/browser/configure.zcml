@@ -77,15 +77,6 @@
        permission="zope.Public"
       for="*" />
 
-
-  <browser:menuItem
-    for="..content.newsletter.INewsletter"
-    menu="plone_displayviews"
-    title="Issues full view"
-    action="all_issues_view"
-    description="Display all issues as fulltext" />
-
-
   <browser:page
     for="*"
     name="enl_helpers"
