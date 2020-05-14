@@ -371,7 +371,7 @@ msgstr "E-Mail-Adresse existierte, Abonnement aktualisiert."
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:26
 msgid "Error Message"
-msgstr "Fehler Meldung"
+msgstr "Fehlermeldung"
 
 #: EasyNewsletter/views/newsletter_subscribers.pt:32
 msgid "Export"
