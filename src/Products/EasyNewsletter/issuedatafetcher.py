@@ -129,33 +129,31 @@ class DefaultDXIssueDataFetcher(object):
         self._issue_data["calendar_week"] = self.issue.effective().strftime("%V")
         return self._issue_data
 
-    def personalize(self, receiver, html):
+    def personalize(self, receiver, text):
         issue_data = self.issue_data
-        data = {}
-        data["html"] = html
-        data["context"] = {}
-        # receiver data:
-        data["context"]["receiver"] = receiver
-        data["context"]["language"] = self.enl.language
-        data["context"]["fullname"] = self._fullname(receiver)
-        data["context"]["salutation"] = self._salutation(receiver)
-        data["context"]["unsubscribe_info"] = self._unsubscribe_info(receiver)
-        data["context"]["unsubscribe"] = data["context"]["unsubscribe_info"]["html"]
-        data["context"]["UNSUBSCRIBE"] = data["context"]["unsubscribe"]
-        data["context"]["subscriber_salutation"] = self._subscriber_salutation(receiver)
-        data["context"]["SUBSCRIBER_SALUTATION"] = data["context"]["subscriber_salutation"]
-        # issue_data:
-        data["context"]["issue_title"] = issue_data["title"]
-        data["context"]["issue_description"] = issue_data["description"]
-        data["context"]["banner_src"] = issue_data["banner_src"]
-        data["context"]["logo_src"] = issue_data["logo_src"]
-        data["context"]["date"] = issue_data["date"]
-        data["context"]["month"] = issue_data["month"]
-        data["context"]["year"] = issue_data["year"]
-        data["context"]["calendar_week"] = issue_data["calendar_week"]
+        context = {}
 
-        template = jinja2.Template(safe_unicode(data["html"]))
-        return template.render(**data["context"])
+        # receiver data:
+        context["receiver"] = receiver
+        context["language"] = self.enl.language
+        context["fullname"] = self._fullname(receiver)
+        context["salutation"] = self._salutation(receiver)
+        context["unsubscribe_info"] = self._unsubscribe_info(receiver)
+        context["UNSUBSCRIBE"] = context["unsubscribe_info"]["html"]
+        context["SUBSCRIBER_SALUTATION"] = self._subscriber_salutation(receiver)
+        # issue_data:
+        context["language"] = self.enl.language
+        context["issue_title"] = issue_data["title"]
+        context["issue_description"] = issue_data["description"]
+        context["banner_src"] = issue_data["banner_src"]
+        context["logo_src"] = issue_data["logo_src"]
+        context["date"] = issue_data["date"]
+        context["month"] = issue_data["month"]
+        context["year"] = issue_data["year"]
+        context["calendar_week"] = issue_data["calendar_week"]
+
+        template = jinja2.Template(safe_unicode(text))
+        return template.render(**context)
 
     def create_plaintext_message(self, text):
         """ Create a plain-text-message by parsing the html
