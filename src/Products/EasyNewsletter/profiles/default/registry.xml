@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
 <registry>
 
-  <records interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
-      prefix="Products.EasyNewsletter">
-  </records>
-
-  <record name="Products.EasyNewsletter.allowed_content_aggregation_types"
-      interface="Products.EasyNewsletter.browser.controlpanel.IENLSettings"
-      field="allowed_content_aggregation_types">
-    <value purge="false"><element>Collection</element></value>
+  <record name="Products.EasyNewsletter.allowed_content_aggregation_types">
+      <field type="plone.registry.field.List">
+          <title>Allowed content aggregation types</title>
+  	  <value_type type="plone.registry.field.TextLine" />
+      </field>
+      <value purge="false"><element>Collection</element></value>
   </record>
 
   <record name="Products.EasyNewsletter.content_aggregation_templates">
