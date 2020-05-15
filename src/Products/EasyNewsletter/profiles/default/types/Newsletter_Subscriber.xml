@@ -100,10 +100,20 @@
   <action title="Main page"
     action_id="main_page"
     category="easynewsletter"
-    url_expr="string:${object_url}/"
+    url_expr="string:${folder_url}"
     visible="True"
     i18n:domain="plone"
     i18n:attributes="title">
     <permission value="Modify portal content" />
   </action>
+  <action title="Subscribers"
+    action_id="subscribers"
+    category="easynewsletter"
+    url_expr="string:${folder_url}/newsletter-subscribers"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
+
 </object>

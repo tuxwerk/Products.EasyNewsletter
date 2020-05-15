@@ -6,6 +6,7 @@ from plone.app.contentmenu.menu import BrowserSubMenuItem
 from plone.protect.utils import addTokenToUrl
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_issue import INewsletterIssue
+from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.security import checkPermission
@@ -31,7 +32,9 @@ class EasyNewsletterActionsSubMenuItem(BrowserSubMenuItem):
     def available(self):
         if (checkPermission('cmf.ModifyPortalContent', self.context)
             or checkPermission('cmf.ReviewPortalContent', self.context)) and \
-                (INewsletterIssue.providedBy(self.context) or INewsletter.providedBy(self.context)):
+                (INewsletterIssue.providedBy(self.context) or \
+                 INewsletter.providedBy(self.context) or \
+                 INewsletterSubscriber.providedBy(self.context)):
             return True
         return False
 
