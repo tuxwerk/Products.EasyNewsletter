@@ -118,12 +118,7 @@ class NewsletterIssueSend(BrowserView):
         # charset = get_email_charset()
         receivers = self._get_recipients()
 
-        # determine MailHost first (build-in vs. external)
-        delivery_service_name = 'mailhost'  # XXX enl.delivery_dervice
-        if delivery_service_name == 'mailhost':
-            self.mail_host = api.portal.get_tool('MailHost')
-        else:
-            self.mail_host = getUtility(IMailHost, name=delivery_service_name)
+        self.mail_host = api.portal.get_tool('MailHost')
         log.info('Using mail delivery service "%r"' % self.mail_host)
 
         send_counter = 0
