@@ -155,7 +155,7 @@ class NewsletterIssueSend(BrowserView):
                     mail_to=(receiver['fullname'], receiver['email']),
                 )
                 m.transform(
-                    images_inline=True,
+                    images_inline=True, # FIXME: Add option to newsletter
                     base_url=self.context.absolute_url(),
                     cssutils_logging_level=logging.ERROR,
                 )
@@ -188,7 +188,7 @@ class NewsletterIssueSend(BrowserView):
             if self.is_test:
                 continue
 
-            # Add information to annotations
+            # Update receivers information to annotations
             status_adapter.add_records(receivers)
             transaction.commit()
 

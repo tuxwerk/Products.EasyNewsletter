@@ -39,13 +39,6 @@ class DefaultDXIssueDataFetcher(object):
         data["subject"] = safe_unicode(request.get("subject")) or safe_unicode(self.issue.title)
         data["body_html"] = safe_unicode(self._render_output_html())
 
-        # personalize (fire also event before personalization)
-        # XXX this should be done outside of issue fetcher
-        # html = self._personalize(receiver, html)
-
-        # handle image attachments
-        # data["images_to_attach"] = self.get_images_to_attach(parser.image_urls)
-
         return data
 
     def preview_html(self, disable_filter=False, receiver=None):
