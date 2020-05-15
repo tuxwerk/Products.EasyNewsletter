@@ -85,14 +85,14 @@
                   type="checkbox"
                   name="selectall" />
               </th>
-              <th i18n:translate="mail">Email</th>
-              <th i18n:translate="subscribed">Subscribed at</th>
-              <th i18n:translate="salutation_listing">Salutation</th>
-              <th i18n:translate="name_prefix_listing">Prefix</th>
-              <th i18n:translate="firstname_listing">First Name</th>
-              <th i18n:translate="lastname_listing">Last Name</th>
+              <th i18n:translate="email">Email</th>
+              <th i18n:translate="subscribed_at">Subscribed at</th>
+              <th i18n:translate="salutation">Salutation</th>
+              <th i18n:translate="name_prefix">Prefix</th>
+              <th i18n:translate="firstname">First Name</th>
+              <th i18n:translate="lastname">Last Name</th>
               <th i18n:translate="language">Language</th>
-              <th i18n:translate="organization_listing">Organization</th>
+              <th i18n:translate="organization">Organization</th>
               <th i18n:translate="source">Source</th>
             </tr>
             <tal:subscriber tal:repeat="subscriber batch">

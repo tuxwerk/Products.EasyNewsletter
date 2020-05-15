@@ -2,12 +2,26 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="Products.EasyNewsletter"
+      i18n:domain="EasyNewsletter"
       metal:use-macro="context/main_template/macros/master">
 <body>
   <metal:block fill-slot="content-core">
-      <h2 i18n:translate="">Sample View</h2>
-      <p tal:content="view/msg">this gets replaced</p>
+    <label i18n:translate="email">Email</label>
+    <p tal:content="context/email">Mr.</p>
+    <label i18n:translate="subscribed_at">Subscribed at</label>
+    <p>${python: plone_view.toLocalizedTime(context.get('creation_date'), long_format=True)}</p>
+    <label i18n:translate="salutation">Salutation</label>
+    <p tal:content="context/salutation">Mr.</p>
+    <label i18n:translate="name_prefix">Prefix</label>
+    <p tal:content="context/name_prefix">Dr.</p>
+    <label i18n:translate="firstname">First name</label>
+    <p tal:content="context/firstname">John</p>
+    <label i18n:translate="lastname">Last name</label>
+    <p tal:content="context/lastname">Doe</p>
+    <label i18n:translate="language">Language</label>
+    <p tal:content="context/nl_language|nothing">Mr.</p>
+    <label i18n:translate="organization">Organization</label>
+    <p tal:content="context/organization">Mr.</p>
   </metal:block>
 </body>
 </html>
