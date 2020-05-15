@@ -132,6 +132,7 @@ class NewsletterIssueSend(BrowserView):
         issue_data_fetcher = IIssueDataFetcher(self.context)
         # get issue data
         issue_data = issue_data_fetcher()
+        status_adapter = ISendStatus(self.context)
         for receiver in receivers:
             send_status = {
                 'successful': None,
@@ -146,7 +147,6 @@ class NewsletterIssueSend(BrowserView):
                 personalized_plaintext = issue_data_fetcher.create_plaintext_message(
                     personalized_html
                 )
-
                 m = emails.Message(
                     html=personalized_html,
                     text=personalized_plaintext,
@@ -185,39 +185,52 @@ class NewsletterIssueSend(BrowserView):
             finally:
                 receiver['status'] = send_status
 
-        if not self.is_test:
+            if self.is_test:
+                continue
+
             # Add information to annotations
-            status_adapter = ISendStatus(self.context)
-            if status_adapter:
-                status_adapter.add_records(receivers)
+            status_adapter.add_records(receivers)
+            transaction.commit()
+
+        if self.is_test:
+            log.info(
+                'Newsletter test was sent to (%s) receivers. (%s) errors occurred!'
+                % (send_counter, send_error_counter)
+            )
+            api.portal.show_message(
+                message=_('Newsletter was sent to test recipients'),
+                request=self.request,
+                type="info",
+            )
+            return
+
         log.info(
             'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
             % (send_counter, send_error_counter)
         )
 
         # change status only for a 'regular' send operation (not 'is_test')
-        if not self.is_test:
-            self.request['enlwf_guard'] = True
-            api.content.transition(obj=self.context, transition='sending_completed')
-            self.request['enlwf_guard'] = False
-            self.context.setEffectiveDate(DateTime())
-            self.context.reindexObject(idxs=['effective'])
-            msg_type = "info"
-            additional_warning = ""
-            if send_error_counter:
-                msg_type = "warn"
-                additional_warning = _(
-                    "\nPlease check the log files, for more details!"
-                )
-            api.portal.show_message(
-                message=_(
-                    'Newsletter was sent to ({0}) receivers. ({1}) errors occurred!{2}'.format(
-                        send_counter, send_error_counter, additional_warning
-                    )
-                ),
-                request=self.request,
-                type=msg_type,
+        self.request['enlwf_guard'] = True
+        api.content.transition(obj=self.context, transition='sending_completed')
+        self.request['enlwf_guard'] = False
+        self.context.setEffectiveDate(DateTime())
+        self.context.reindexObject(idxs=['effective'])
+        msg_type = "info"
+        additional_warning = ""
+        if send_error_counter:
+            msg_type = "warning"
+            additional_warning = _(
+                "Please check the log files, for more details!"
             )
+        api.portal.show_message(
+            message=_(
+                'Newsletter was sent to ({0}) receivers. ({1}) errors occurred! {2}'.format(
+                    send_counter, send_error_counter, additional_warning
+                )
+            ),
+            request=self.request,
+            type=msg_type,
+        )
 
     @property
     def salutation_mappings(self):
