@@ -4,7 +4,6 @@ from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.config import PLACEHOLDERS
-from Products.EasyNewsletter.interfaces import IBeforePersonalizationEvent
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from zope.event import notify
 from zope.interface import implementer
@@ -14,12 +13,6 @@ import logging
 
 
 log = logging.getLogger("Products.EasyNewsletter")
-
-
-@implementer(IBeforePersonalizationEvent)
-class BeforePersonalizationEvent(object):
-    def __init__(self, data):
-        self.data = data
 
 
 @implementer(IIssueDataFetcher)
@@ -161,7 +154,6 @@ class DefaultDXIssueDataFetcher(object):
         data["context"]["year"] = issue_data["year"]
         data["context"]["calendar_week"] = issue_data["calendar_week"]
 
-        notify(BeforePersonalizationEvent(data))
         template = jinja2.Template(safe_unicode(data["html"]))
         return template.render(**data["context"])
 

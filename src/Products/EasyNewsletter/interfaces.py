@@ -84,8 +84,3 @@ class IIssueDataFetcher(Interface):
     def preview_html():
         """html meant for preview of the newsletter in browser.
         """
-
-
-class IBeforePersonalizationEvent(Interface):
-
-    data = Attribute('issue specific data')
