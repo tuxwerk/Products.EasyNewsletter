@@ -10,7 +10,6 @@ from plone.app.testing import TEST_USER_NAME
 from plone.testing.z2 import Browser
 from Products.CMFPlone.tests.utils import MockMailHost
 from Products.CMFPlone.utils import safe_unicode
-from Products.EasyNewsletter.config import IS_PLONE_5
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_FUNCTIONAL_TESTING
 from Products.EasyNewsletter.testing import PRODUCTS_EASYNEWSLETTER_INTEGRATION_TESTING
 from Products.MailHost.interfaces import IMailHost
@@ -24,9 +23,8 @@ import unittest
 GLOBALS = globals()
 TESTS_HOME = package_home(GLOBALS)
 
-if IS_PLONE_5:
-    from plone.registry.interfaces import IRegistry
-    from Products.CMFPlone.interfaces.controlpanel import IMailSchema
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces.controlpanel import IMailSchema
 
 
 class UnsubscribeFormIntegrationTests(unittest.TestCase):
