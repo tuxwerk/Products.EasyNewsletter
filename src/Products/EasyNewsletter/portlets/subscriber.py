@@ -35,7 +35,7 @@ VALID_TAGS = [
 
 def sanitize_html(value):
 
-    soup = BeautifulSoup(value)
+    soup = BeautifulSoup(value, features="lxml")
 
     for tag in soup.findAll(True):
         if tag.name not in VALID_TAGS:
