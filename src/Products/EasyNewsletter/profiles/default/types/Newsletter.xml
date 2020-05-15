@@ -110,8 +110,8 @@
       visible="True">
     <permission value="Modify portal content"/>
   </action>
-  <action title="Archive"
-    action_id="archive"
+  <action title="Main page"
+    action_id="main_page"
     category="easynewsletter"
     url_expr="string:${folder_url}"
     visible="True"
