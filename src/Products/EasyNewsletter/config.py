@@ -6,18 +6,14 @@ from zope.i18nmessageid import MessageFactory
 
 import re
 
-
 _ = MessageFactory('EasyNewsletter')
-
-IS_PLONE_5 = api.env.plone_version().startswith('5')
 
 PROJECTNAME = 'EasyNewsletter'
 
-ENL_ISSUE_TYPES = ['ENLIssue', 'Newsletter Issue']
-ENL_EDITHELPER_TYPES = ['EasyNewsletter', 'ENLIssue', 'Newsletter', 'Newsletter Issue']
+ENL_ISSUE_TYPES = ['Newsletter Issue']
+ENL_EDITHELPER_TYPES = ['Newsletter', 'Newsletter Issue']
 
-PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION']
-
+PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION'] # FIXME: add the other placeholders
 
 SALUTATION = {
     'ms': _(u'label_salutation_ms', 'Ms.'),
@@ -50,17 +46,17 @@ MESSAGE_CODE = {
         default=u'Your subscription was successfully confirmed.'),
 }
 
-
 EMAIL_RE = re.compile(
     r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,63}(?:\s|$)", re.IGNORECASE)
-
 
 DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
     u'Confirm your subscription on ${portal_url}'
 )
 
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = u"""\
-You subscribe to the ${newsletter_title}.\n\n
-Your registered email is: ${subscriber_email}\n
-Please click on the link to confirm your subscription: \n
-${confirmation_url}"""
+DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = _(
+    u"""\
+    You subscribe to the ${newsletter_title}.\n\n
+    Your registered email is: ${subscriber_email}\n
+    Please click on the link to confirm your subscription: \n
+    ${confirmation_url}"""
+)
