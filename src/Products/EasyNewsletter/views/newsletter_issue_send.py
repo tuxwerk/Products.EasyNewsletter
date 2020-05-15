@@ -133,62 +133,54 @@ class NewsletterIssueSend(BrowserView):
         # get issue data
         issue_data = issue_data_fetcher()
         status_adapter = ISendStatus(self.context)
+
+        # prepare raw email
+        m = emails.Message(
+            subject=issue_data['subject'],
+            mail_from=(sender_name, sender_email),
+        )
+
         for receiver in receivers:
             send_status = {
                 'successful': None,
                 'error': None,
                 'datetime': datetime.now(),
             }
+            html_text = issue_data_fetcher.personalize(
+                receiver, issue_data['body_html']
+            )
+            plain_text = issue_data_fetcher.create_plaintext_message(html_text)
+            m.set_html(html=html_text)
+            m.set_text(text=plain_text)
+            m.set_mail_to((receiver['fullname'], receiver['email']))
+            m.transform(
+                images_inline=True, # FIXME: Add option to newsletter
+                base_url=self.context.absolute_url(),
+                cssutils_logging_level=logging.ERROR,
+            )
+            message_string = m.as_string()
+            if 'HTTPLoaderError' in message_string:
+                log.exception(u"Transform message failed: {0}".format(message_string))
             try:
-                personalized_html = issue_data_fetcher.personalize(
-                    receiver, issue_data['body_html']
-                )
-                # get plain text version
-                personalized_plaintext = issue_data_fetcher.create_plaintext_message(
-                    personalized_html
-                )
-                m = emails.Message(
-                    html=personalized_html,
-                    text=personalized_plaintext,
-                    subject=issue_data['subject'],
-                    mail_from=(sender_name, sender_email),
-                    mail_to=(receiver['fullname'], receiver['email']),
-                )
-                m.transform(
-                    images_inline=True, # FIXME: Add option to newsletter
-                    base_url=self.context.absolute_url(),
-                    cssutils_logging_level=logging.ERROR,
-                )
-                message_string = m.as_string()
-                if 'HTTPLoaderError' in message_string:
-                    log.exception(u"Transform message failed: {0}".format(message_string))
-                try:
-                    self.mail_host.send(message_string, immediate=True)
-                    send_status['successful'] = True
-                    log.info('Send newsletter to "%s"' % receiver['email'])
-                    send_counter += 1
-                except Exception as e:  # noqa
-                    send_status['successful'] = False
-                    send_status['error'] = e
-                    log.exception(
-                        'Sending newsletter to "%s" failed, with error "%s"!'
-                        % (receiver['email'], e)
-                    )
-                    send_error_counter += 1
-            except Exception as e:
+                self.mail_host.send(message_string, immediate=True)
+                send_status['successful'] = True
+                log.info('Sent newsletter to "%s"' % receiver['email'])
+                send_counter += 1
+            except Exception as e:  # noqa
                 send_status['successful'] = False
                 send_status['error'] = e
                 log.exception(
-                    'Sending newsletter failed, with error "{0}"!'.format(e)
+                    'Sending newsletter to "%s" failed, with error "%s"!'
+                    % (receiver['email'], e)
                 )
                 send_error_counter += 1
-            finally:
-                receiver['status'] = send_status
+
+            receiver['status'] = send_status
 
             if self.is_test:
                 continue
 
-            # Update receivers information to annotations
+            # Update receivers information to annotations on each mail
             status_adapter.add_records(receivers)
             transaction.commit()
 
