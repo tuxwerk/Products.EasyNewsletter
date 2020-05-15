@@ -38,7 +38,7 @@
                 <span i18n:translate="" tal:condition="python: status and status == False">Failed</span>
               </td>
               <td tal:define="error record/status/error | nothing">
-                <pre tal:condition="error" tal:content="error">[error]</pre>
+                <span tal:condition="error" tal:content="error">[error]</span>
               </td>
             </tr>
           </tbody>
