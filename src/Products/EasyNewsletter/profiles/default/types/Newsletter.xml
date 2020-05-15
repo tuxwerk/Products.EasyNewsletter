@@ -110,5 +110,40 @@
       visible="True">
     <permission value="Modify portal content"/>
   </action>
-
+  <action title="Archive"
+    action_id="archive"
+    category="easynewsletter"
+    url_expr="string:${folder_url}"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
+  <action title="Subscribers"
+    action_id="subscribers"
+    category="easynewsletter"
+    url_expr="string:${folder_url}/newsletter-subscribers"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
+  <action title="Masters"
+    action_id="masters"
+    category="easynewsletter"
+    url_expr="string:${folder_url}/newsletter-masters"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
+  <action title="Drafts"
+    action_id="drafts"
+    category="easynewsletter"
+    url_expr="string:${folder_url}/newsletter-drafts"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
 </object>

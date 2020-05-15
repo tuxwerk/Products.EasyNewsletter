@@ -18,7 +18,6 @@
   <include package=".vocabularies" />
   <include package=".upgrades" />
   <include package=".views" />
-  <include package=".viewlets" />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
