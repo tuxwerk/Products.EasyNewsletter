@@ -54,6 +54,7 @@ class NewsletterSubscribers(BrowserView):
                     id=brain.getId,
                     source="plone",
                     deletable=True,
+                    creation_date=brain.creation_date,
                     email=brain.email,
                     getURL=brain.getURL(),
                     salutation=salutation,

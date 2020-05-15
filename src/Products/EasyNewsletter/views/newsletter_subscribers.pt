@@ -7,8 +7,9 @@
   <body>
     <metal:block fill-slot="content-core">
       <metal:main tal:define="subscribers python:view.subscribers();
-                         subscribers_number python:len(subscribers) ;
-                         Batch python:modules['Products.CMFPlone'].Batch;
+                         subscribers_number python:len(subscribers);
+			 plone_view python:context.restrictedTraverse('@@plone');
+			 Batch python:modules['Products.CMFPlone'].Batch;
                          b_start python:request.get('b_start',0);
                          b_size request/b_size|python:100;
                          batch_base_url here/@@plone_context_state/current_base_url;
@@ -65,7 +66,7 @@
         <form method="post"
           tal:attributes="action view/__name__">
 
-          <table class="listing"
+          <table class="listing" style="font-size: 12px"
             summary="Subscriber Listing">
             <tr>
               <th colspan="10">
@@ -85,6 +86,7 @@
                   name="selectall" />
               </th>
               <th i18n:translate="mail">Email</th>
+              <th i18n:translate="subscribed">Subscribed at</th>
               <th i18n:translate="salutation_listing">Salutation</th>
               <th i18n:translate="name_prefix_listing">Prefix</th>
               <th i18n:translate="firstname_listing">First Name</th>
@@ -92,7 +94,6 @@
               <th i18n:translate="language">Language</th>
               <th i18n:translate="organization_listing">Organization</th>
               <th i18n:translate="source">Source</th>
-              <th i18n:translate="action">Action</th>
             </tr>
             <tal:subscriber tal:repeat="subscriber batch">
               <tr tal:define="oddrow repeat/subscriber/odd;
@@ -114,6 +115,7 @@
                   <span tal:condition="not: isPlone"
                     tal:content="subscriber/email" />
                 </td>
+                <td>${python: plone_view.toLocalizedTime(subscriber.get('creation_date'), long_format=True)}</td>
                 <td i18n:translate=""
                   tal:content="subscriber/salutation" />
                 <td i18n:translate=""
@@ -128,15 +130,6 @@
                   tal:content="subscriber/organization|nothing"></td>
                 <td i18n:translate=""
                   tal:content="subscriber/source|nothing"></td>
-                <td>
-                  <a href="#"
-                    tal:condition="isPlone"
-                    tal:attributes="href string:${subscriber/getURL|nothing}/delete_confirmation">
-                    <img tal:attributes="alt string:Delete subscriber;
-                                                  title string:Delete subscriber;
-                                                  src string:delete_icon.png" />
-                  </a>
-                </td>
               </tr>
             </tal:subscriber>
           </table>
