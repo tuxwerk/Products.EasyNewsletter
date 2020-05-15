@@ -111,6 +111,7 @@ class SubscriberView(BrowserView):
         enl_registration_tool = queryUtility(
             IENLRegistrationTool, "enl_registration_tool"
         )
+        # FIXME: what if the hash key is in enl_registration_tool ???
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(
                 hashkey, **subscriber_data
