@@ -12,7 +12,8 @@
 
   <genericsetup:registerProfile
       title="Products.EasyNewsletter"
-      description="A Newsletter/Mailing addon for Plone."
+      description="A Newsletter addon for Plone 5."
+      i18n:attributes="description"
       directory="profiles/default"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
