@@ -95,6 +95,7 @@ class SubscriberView(BrowserView):
         enl_registration_tool[hashkey] = RegistrationData(
             hashkey, **subscriber_data
         )
+        # FIXME: remove it as it's purpose is not known
         msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
             "${portal_url}", self.portal_url.strip("http://")
         )
@@ -112,7 +113,7 @@ class SubscriberView(BrowserView):
         msg = emails.Message(
             text=msg_text,
             subject=msg_subject,
-            mail_from=settings.email_from_address,
+            mail_from=settings.email_from_address, # FIXME: should be the address of newsletter
             mail_to=subscriber,
         )
         self.portal.MailHost.send(msg.as_string())
@@ -219,6 +220,7 @@ class UnsubscribeView(BrowserView):
             self.form_action = self.newsletter_url + "/unsubscribe"
             return self.index()
 
+    # FIXME: remove this. we don't need it as the unsubscribe link is in the newsletter
     def send_unsubscribe_email(self, subscriber):
         newsletter = self.context
         catalog = getToolByName(self.context, "portal_catalog")
