@@ -165,7 +165,6 @@ class INewsletter(model.Schema):
         required=True,
     )
 
-    # Make sure you import: plone.namedfile
     banner = namedfile.NamedBlobImage(
         title=_(u"ENL_image_label", default=u"Banner image"),
         description=_(
@@ -177,7 +176,6 @@ class INewsletter(model.Schema):
         required=False,
     )
 
-    # Make sure you import: plone.namedfile
     logo = namedfile.NamedBlobImage(
         title=_(u"ENL_logo_label", default=u"Logo image"),
         description=_(
@@ -188,34 +186,31 @@ class INewsletter(model.Schema):
         required=False,
     )
 
-    # Make sure to import: plone.app.textfield
     default_prologue = textfield.RichText(
-        title=_(u"ENL_label_default_header", default=u"Prologue"),
+        title=_(u"default_prologue", default=u"Default prologue"),
         description=_(
-            u"ENL_description_text_header",
-            default=u"The default prologue text. This is used as a default \
+            u"default_prologue_description",
+            default=u"This is used as a default \
                 for new issues. You can use placeholders like\
                 {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
-        default=_(u"{{SUBSCRIBER_SALUTATION}}<br />"),
+        default=_(u"<p>{{SUBSCRIBER_SALUTATION}}</p><br />"),
         required=False,
     )
 
-    # Make sure to import: plone.app.textfield
     default_epilogue = textfield.RichText(
-        title=_(u"ENL_label_default_footer", default=u"Epilogue"),
+        title=_(u"default_epilogue", default=u"Default epilogue"),
         description=_(
-            u"ENL_description_text_footer",
-            default=u"The default epilogue text. This is used as a default \
+            u"default_epilogue_description",
+            default=u"This is used as a default \
                 for new issues. You can use placeholders like\
                 {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
-        default=_(u"<h1>Community Newsletter for Plone</h1>\n{{UNSUBSCRIBE}}"),
+        default=_(u"<h1>Community Newsletter for Plone</h1>\n<p>{{UNSUBSCRIBE}}</p>"),
         required=False,
     )
 
-    # Make sure you import:
-    # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
+    # FIXME: what does the text mean?
     directives.widget(exclude_all_subscribers=SingleCheckBoxBoolFieldWidget)
     exclude_all_subscribers = schema.Bool(
         title=_(u"ENL_label_excludeAllSubscribers", default=u"Exclude all subscribers"),
@@ -251,7 +246,7 @@ class INewsletter(model.Schema):
                 customize the text, but it should include the \
                 placeholder: ${portal_url}!",
         ),
-        default=config.DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT,
+        default=u'Confirm your subscription on ${portal_url}',
         required=True,
     )
 
@@ -267,7 +262,13 @@ class INewsletter(model.Schema):
                 ${portal_url}, ${subscriber_email} and \
                 ${confirmation_url}!",
         ),
-        default=config.DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT,
+        default=_(
+            u"""\
+            You subscribe to the ${newsletter_title}.\n\n
+            Your registered email is: ${subscriber_email}\n
+            Please click on the link to confirm your subscription: \n
+            ${confirmation_url}"""
+        ),
         required=True,
     )
 

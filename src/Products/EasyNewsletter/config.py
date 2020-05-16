@@ -48,15 +48,3 @@ MESSAGE_CODE = {
 
 EMAIL_RE = re.compile(
     r"(?:^|\s)[-a-z0-9_.]+@(?:[-a-z0-9]+\.)+[a-z]{2,63}(?:\s|$)", re.IGNORECASE)
-
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_SUBJECT = _(
-    u'Confirm your subscription on ${portal_url}'
-)
-
-DEFAULT_SUBSCRIBER_CONFIRMATION_MAIL_TEXT = _(
-    u"""\
-    You subscribe to the ${newsletter_title}.\n\n
-    Your registered email is: ${subscriber_email}\n
-    Please click on the link to confirm your subscription: \n
-    ${confirmation_url}"""
-)

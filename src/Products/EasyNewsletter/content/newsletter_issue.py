@@ -140,11 +140,10 @@ class INewsletterIssue(model.Schema):
     )
 
     prologue = textfield.RichText(
-        title=_(u"ENL_label_default_header", default=u"Prologue"),
+        title=_(u"prologue", default=u"Prologue"),
         description=_(
-            u"ENL_description_text_header",
-            default=u"The default prologue text. This is used as a default \
-                for new issues. You can use placeholders like\
+            u"prologue_description",
+            default=u"You can use placeholders like\
                 {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
         defaultFactory=get_default_prologue,
@@ -152,11 +151,10 @@ class INewsletterIssue(model.Schema):
     )
 
     epilogue = textfield.RichText(
-        title=_(u"ENL_label_default_footer", default=u"Epilogue"),
+        title=_(u"epilogue", default=u"Epilogue"),
         description=_(
-            u"ENL_description_text_footer",
-            default=u"The default epilogue text. This is used as a default \
-                for new issues. You can use placeholders like\
+            u"epilogue_description",
+            default=u"You can use placeholders like\
                 {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
         defaultFactory=get_default_epilogue,
