@@ -6,14 +6,11 @@ from plone import api
 from plone.protect import PostOnly
 from Products.EasyNewsletter import _
 from Products.EasyNewsletter import log
-from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
-from zope.component import subscribers
 from logging import ERROR
 
 import emails
@@ -216,109 +213,24 @@ class NewsletterIssueSend(BrowserView):
             type=msg_type,
         )
 
-    @property
-    def salutation_mappings(self):
-        """
-        returns mapping of salutations. Each salutation itself is a dict
-        with key as language. (prepared for multilingual newsletter)
-        """
-        enl = self.context.get_newsletter()
-        result = {}
-        lang = self.context.language or 'en'
-
-        for line in enl.salutations:
-            if "|" not in line:
-                continue
-            key, value = line.split('|')
-            result[key.strip()] = {lang: value.strip()}
-        return result
-
-    def _unique_receivers(self, receivers_raw):
-        receivers = []
-        mails = []
-        for receiver in receivers_raw:
-            if receiver['email'] in mails:
-                continue
-            mails.append(receiver['email'])
-            receivers.append(receiver)
-        return receivers
-
     def _get_recipients(self):
-        """ return list of recipients """
-        request = self.request
         enl = self.context.get_newsletter()
-        salutation_mappings = self.salutation_mappings
-        if self.is_test:
-            # get test e-mail
-            test_receiver = request.get('test_receiver', '')
-            if test_receiver == "":
-                test_receiver = enl.test_email
-            salutation = salutation_mappings.get('default', '')
-            receivers = [
-                {
-                    'email': test_receiver,
-                    'fullname': 'Test Member',
-                    'salutation': salutation.get(self.context.language, ''),
-                    # 'nl_language': self.language
-                }
-            ]
-            return receivers
+        # live sending
+        if not self.is_test:
+            return self.context.get_receivers()
 
-        # only send to all subscribers if the exclude all subscribers
-        # checkbox, was not set.
-        # get Subscribers
-        enl_receivers = []
-        if not self.context.exclude_all_subscribers:
-            for subscriber_brain in api.content.find(
-                portal_type='Newsletter Subscriber', context=enl
-            ):
-                if not subscriber_brain:
-                    continue
-                subscriber = subscriber_brain.getObject()
-                salutation_key = subscriber.salutation or 'default'
-                salutation = salutation_mappings.get(salutation_key, {})
-                enl_receiver = {
-                    'email': subscriber.email,
-                    'gender': subscriber.salutation,
-                    'name_prefix': subscriber.name_prefix,
-                    'firstname': subscriber.firstname or u'',
-                    'lastname': subscriber.lastname or u'',
-                    'fullname': ' '.join(
-                        [subscriber.firstname or u'', subscriber.lastname or u'']
-                    ),
-                    'salutation': salutation.get(
-                        None,  # subscriber.getNl_language(),
-                        salutation.get(self.context.language or 'en', ''),
-                    ),
-                    'uid': subscriber.UID(),
-                    # 'nl_language': subscriber.getNl_language()
-                }
+        # test sending
+        test_receiver = self.request.get('test_receiver', '')
+        if test_receiver == "":
+            test_receiver = enl.test_email
 
-                enl_receivers.append(enl_receiver)
-
-        receivers_raw = enl_receivers
-
-        # get subscribers over selected plone members anpid groups
-        plone_receivers = []
-        try:
-            plone_receivers_adapter = IPloneUserGroupRecipients(self.context)
-        except TypeError:
-            plone_receivers_adapter = None
-        if not plone_receivers_adapter:
-            try:
-                plone_receivers_adapter = IPloneUserGroupRecipients(enl)
-            except TypeError:
-                plone_receivers_adapter = None
-        if plone_receivers_adapter:
-            plone_receivers = plone_receivers_adapter.get_plone_subscribers()
-        receivers_raw += plone_receivers
-        # XXX implement this with the behavior
-        # external_subscribers = self._get_external_source_subscribers(enl)
-        # receivers_raw += external_subscribers
-        receivers = self._unique_receivers(receivers_raw)
-
-        # Filter all receivers which already got an email
-        for subscriber in subscribers([self.context], IReceiversPostSendingFilter):
-            receivers = subscriber.filter(receivers)
-
+        salutation = enl.salutation_mappings.get('mr', '')
+        receivers = [
+            {
+                'email': test_receiver,
+                'fullname': 'Test Member',
+                'salutation': salutation.get(self.context.language, ''),
+                # 'nl_language': self.language
+            }
+        ]
         return receivers

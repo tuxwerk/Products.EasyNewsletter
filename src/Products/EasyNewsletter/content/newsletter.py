@@ -10,10 +10,12 @@ from plone.namedfile import field as namedfile
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
 from Products.EasyNewsletter import _
-from Products.EasyNewsletter import config
+from Products.EasyNewsletter import log
+from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients
 from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer
+
 
 
 def get_default_output_template():
@@ -287,5 +289,73 @@ class Newsletter(Container):
     def get_newsletter(self):
         return self
 
-    # bbb to support ATCT way, needs to be removed in v5.x:
-    getNewsletter = get_newsletter
+    def get_receivers(self):
+        enl_receivers = []
+        if not self.exclude_all_subscribers:
+            for subscriber_brain in api.content.find(
+                portal_type='Newsletter Subscriber', context=self
+            ):
+                if not subscriber_brain:
+                    continue
+                subscriber = subscriber_brain.getObject()
+                salutation_key = subscriber.salutation or 'default'
+                salutation = self.salutation_mappings.get(salutation_key, {})
+                enl_receiver = {
+                    'email': subscriber.email,
+                    'gender': subscriber.salutation,
+                    'name_prefix': subscriber.name_prefix,
+                    'firstname': subscriber.firstname or u'',
+                    'lastname': subscriber.lastname or u'',
+                    'fullname': ' '.join(
+                        [subscriber.firstname or u'', subscriber.lastname or u'']
+                    ),
+                    'salutation': salutation.get(
+                        None,  # subscriber.getNl_language(),
+                        salutation.get(self.language or 'en', ''),
+                    ),
+                    'uid': subscriber.UID(),
+                    # 'nl_language': subscriber.getNl_language()
+                }
+
+                enl_receivers.append(enl_receiver)
+
+        receivers_raw = enl_receivers
+
+        # get subscribers over selected plone members anpid groups
+        plone_receivers = []
+        try:
+            plone_receivers_adapter = IPloneUserGroupRecipients(self)
+            plone_receivers = plone_receivers_adapter.get_plone_subscribers()
+        except TypeError:
+            plone_receivers_adapter = None
+
+        receivers_raw += plone_receivers
+        receivers = self._unique_receivers(receivers_raw)
+
+        return receivers
+
+    @property
+    def salutation_mappings(self):
+        """
+        returns mapping of salutations. Each salutation itself is a dict
+        with key as language. (prepared for multilingual newsletter)
+        """
+        result = {}
+        lang = self.language or 'en'
+
+        for line in self.salutations:
+            if "|" not in line:
+                continue
+            key, value = line.split('|')
+            result[key.strip()] = {lang: value.strip()}
+        return result
+
+    def _unique_receivers(self, receivers_raw):
+        receivers = []
+        mails = []
+        for receiver in receivers_raw:
+            if receiver['email'] in mails:
+                continue
+            mails.append(receiver['email'])
+            receivers.append(receiver)
+        return receivers

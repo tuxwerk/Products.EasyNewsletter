@@ -10,8 +10,10 @@ from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from z3c import relationfield
 from zope.annotation.interfaces import IAnnotations
+from zope.component import subscribers
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import provider
@@ -211,8 +213,13 @@ class NewsletterIssue(Container):
     def get_newsletter(self):
         return self.__parent__
 
-    # bbb to support ATCT way, needs to be removed in v5.x:
-    getNewsletter = get_newsletter
+    def get_receivers(self):
+        receivers = self.get_newsletter().get_receivers()
+        # Filter all receivers which already got an email
+        for subscriber in subscribers([self],
+                                      IReceiversPostSendingFilter):
+            receivers = subscriber.filter(receivers)
+        return receivers
 
     def has_image(self):
         has_image = bool(self.get_image_src())
