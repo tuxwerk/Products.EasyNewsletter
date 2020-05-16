@@ -154,4 +154,13 @@
     i18n:attributes="title">
     <permission value="Modify portal content" />
   </action>
+  <action title="Preview"
+    action_id="preview"
+    category="easynewsletter"
+    url_expr="string:${object_url}/preview"
+    visible="True"
+    i18n:domain="plone"
+    i18n:attributes="title">
+    <permission value="Modify portal content" />
+  </action>
 </object>

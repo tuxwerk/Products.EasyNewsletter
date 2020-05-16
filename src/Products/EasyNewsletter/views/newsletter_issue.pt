@@ -8,13 +8,6 @@
     <metal:block fill-slot="content-core"
       tal:define="is_editable context/@@plone_context_state/is_editable;
                   token context/@@authenticator/token">
-      <p>
-        <a tal:attributes="href string:${view/here_url}/preview?_authenticator=${token}"
-          tal:condition="is_editable"
-          target="_blank"
-          class="btn btn-info"
-          role="button">Preview email content in new window</a>
-      </p>
 
       <iframe src="preview_url"
         name="enl_issue_preview"
