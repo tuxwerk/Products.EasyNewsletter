@@ -22,13 +22,7 @@ from zope.interface import alsoProvides
 
 import emails
 import OFS
-
-
-try:
-    from plone import protect
-except ImportError:
-    # BBB for old plone.protect, default until at least Plone 4.3.7.
-    protect = None
+from plone import protect
 
 class SubscriberView(BrowserView):
     """
@@ -60,9 +54,8 @@ class SubscriberView(BrowserView):
         """
         """
         messages = IStatusMessage(self.request)
-        path_to_easynewsletter = self.request.get("newsletter")
         # remove leading slash from paths like: /mynewsletter
-        path_to_easynewsletter = path_to_easynewsletter.strip("/")
+        path_to_easynewsletter = self.request.get("newsletter").strip("/")
         newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
 
         subscriber = self.request.get("subscriber")
@@ -72,40 +65,29 @@ class SubscriberView(BrowserView):
             messages.addStatusMessage(_("Please enter a valid email address.\n{0}".format(e)), "error")
             return self._msg_redirect(newsletter_container)
 
-        lastname = self.request.get("name", "")
-        firstname = self.request.get("firstname", "")
-        name_prefix = self.request.get("name_prefix", "")
-        portal_state = getMultiAdapter(
-            (self.context.aq_inner, self.request), name=u"plone_portal_state"
-        )
-        current_language = portal_state.language()
-        nl_language = self.request.get("nl_language", current_language)
-        salutation = self.request.get("salutation", "")
-        organization = self.request.get("organization", "")
-
         norm = queryUtility(IIDNormalizer)
-        normalized_subscriber = norm.normalize(subscriber)
-        if normalized_subscriber in newsletter_container.objectIds():
-            messages.addStatusMessage(
-                _("Your email address is already registered."), "error"
-            )
+        if norm.normalize(subscriber) in newsletter_container.objectIds():
+            messages.addStatusMessage(_("Your email address is already registered."), "error")
             return self._msg_redirect(newsletter_container)
+
+        portal_state = getMultiAdapter((self.context.aq_inner, self.request),
+                                       name=u"plone_portal_state")
+        nl_language = self.request.get("nl_language", portal_state.language())
+
         subscriber_data = {}
-        subscriber_data["subscriber"] = subscriber
-        subscriber_data["lastname"] = lastname
-        subscriber_data["firstname"] = firstname
-        subscriber_data["name_prefix"] = name_prefix
-        subscriber_data["nl_language"] = nl_language
-        subscriber_data["salutation"] = salutation
-        subscriber_data["organization"] = organization
+        subscriber_data["subscriber"]   = subscriber
+        subscriber_data["lastname"]     = self.request.get("name", "")
+        subscriber_data["firstname"]    = self.request.get("firstname", "")
+        subscriber_data["name_prefix"]  = self.request.get("name_prefix", "")
+        subscriber_data["nl_language"]  = nl_language
+        subscriber_data["salutation"]   = self.request.get("salutation", "")
+        subscriber_data["organization"] = self.request.get("organization", "")
         subscriber_data["path_to_easynewsletter"] = path_to_easynewsletter
 
+        enl_registration_tool = queryUtility(IENLRegistrationTool, "enl_registration_tool")
         # use password reset tool to create a hash
         pwr_data = self._requestReset(subscriber)
         hashkey = pwr_data["randomstring"]
-        enl_registration_tool = queryUtility(
-            IENLRegistrationTool, "enl_registration_tool"
-        )
         # FIXME: what if the hash key is in enl_registration_tool ???
         if hashkey not in enl_registration_tool.objectIds():
             enl_registration_tool[hashkey] = RegistrationData(
@@ -124,13 +106,12 @@ class SubscriberView(BrowserView):
             msg_text = msg_text.replace("${subscriber_email}", subscriber)
             msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
             settings = get_portal_mail_settings()
-            msg_sender = settings.email_from_address
-            msg_receiver = subscriber
+
             msg = emails.Message(
                 text=msg_text,
                 subject=msg_subject,
-                mail_from=msg_sender,
-                mail_to=msg_receiver,
+                mail_from=settings.email_from_address,
+                mail_to=subscriber,
             )
             self.portal.MailHost.send(msg.as_string())
 
@@ -197,8 +178,7 @@ class SubscriberView(BrowserView):
 
         Returns a dictionary with the random string that must be
         used to reset the password in 'randomstring', the expiration date
-        as a DateTime in 'expires', and the userid (for convenience) in
-        'userid'.
+        as a DateTime in 'expires'.
         # taken from Products.PasswordResetTool but without getValidUser check!
         """
         pwrtool = getToolByName(self.context, "portal_password_reset")
@@ -212,7 +192,6 @@ class SubscriberView(BrowserView):
         retval = {}
         retval["randomstring"] = randomstring
         retval["expires"] = expiry
-        retval["userid"] = userid
         return retval
 
 
@@ -224,11 +203,6 @@ class RegistrationData(OFS.SimpleItem.Item):
         self.id = id
         for key, value in kw.items():
             setattr(self, key, value)
-        # super(RegistrationData, self).__init__()
-
-    @property
-    def title(self):
-        return "%s - %s" % (" ".join([self.firstname, self.lastname]), self.subscriber)
 
 
 class UnsubscribeView(BrowserView):
