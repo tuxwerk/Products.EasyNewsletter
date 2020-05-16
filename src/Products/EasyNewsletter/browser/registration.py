@@ -92,6 +92,7 @@ class SubscriberView(BrowserView):
         while hashkey in enl_registration_tool.objectIds():
             hashkey = pwr_data["randomstring"]
 
+        # FIXME: prevent too many registration emails for the same email address
         enl_registration_tool[hashkey] = RegistrationData(
             hashkey, **subscriber_data
         )
