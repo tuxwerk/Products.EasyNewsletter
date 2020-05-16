@@ -2,9 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
-
-import logging
-
+from Products.EasyNewsletter import log
 
 @implementer(INonInstallable)
 class HiddenProfiles(object):
@@ -27,19 +25,16 @@ class HiddenProfiles(object):
 PROFILE_ID = 'profile-Products.EasyNewsletter:default'
 
 
-def add_catalog_indexes(context, logger=None):
+def add_catalog_indexes(context):
     """Method to add our wanted indexes to the portal_catalog.
 
     @parameters:
 
     When called from the import_various method below, 'context' is
-    the plone site and 'logger' is the portal_setup logger.  But
+    the plone site.  But
     this method can also be used as upgrade step, in which case
-    'context' will be portal_setup and 'logger' will be None.
+    'context' will be portal_setup.
     """
-    if logger is None:
-        # Called as upgrade step: define our own logger.
-        logger = logging.getLogger('Products.EasyNewsletter')
 
     # Run the catalog.xml step as that may have defined new metadata
     # columns.  We could instead add <depends name="catalog"/> to
@@ -68,9 +63,9 @@ def add_catalog_indexes(context, logger=None):
         if name not in indexes:
             catalog.addIndex(name, meta_type)
             indexables.append(name)
-            logger.info("Added %s for field %s.", meta_type, name)
+            log.info("Added %s for field %s.", meta_type, name)
     if len(indexables) > 0:
-        logger.info("Indexing new indexes %s.", ', '.join(indexables))
+        log.info("Indexing new indexes %s.", ', '.join(indexables))
         catalog.manage_reindexIndex(ids=indexables)
 
 
@@ -80,6 +75,5 @@ def import_various(context):
     # Only run step if a flag file is present
     if context.readDataFile('Products.EasyNewsletter-default.txt') is None:
         return
-    logger = context.getLogger('Products.EasyNewsletter')
     site = context.getSite()
-    add_catalog_indexes(site, logger)
+    add_catalog_indexes(site)

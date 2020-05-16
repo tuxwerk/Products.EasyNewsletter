@@ -1,13 +1,9 @@
 # -*- coding: utf-8 -*-
-from logging import getLogger
 from nameparser import HumanName
 from plone import api
 from plone.app.upgrade.utils import loadMigrationProfile
 from Products.CMFCore.utils import getToolByName
-
-
-logger = getLogger('Products.EasyNewsletter')
-
+from Products.EasyNewsletter import log
 
 # XXX: don't use this place to add upgrade steps, this is just for BBB, use plonecli
 # to create new upgrade step files and folders!
@@ -22,7 +18,7 @@ def reinstall_gs_profile(context):
     #     context,
     #     'profile-Products.EasyNewsletter:install-base'
     # )
-    logger.info("Products.EasyNewsletter generic setup profile re-installed")
+    log.info("Products.EasyNewsletter generic setup profile re-installed")
 
 
 def fullname_to_first_and_lastname(context):
@@ -37,7 +33,7 @@ def fullname_to_first_and_lastname(context):
         try:
             name = HumanName(obj.fullname)
         except Exception:
-            logger.info(
+            log.info(
                 'No splitting necessary for {0}'.format(obj.getTitle()))
         if name:
             if not obj.getLastname():
@@ -47,7 +43,7 @@ def fullname_to_first_and_lastname(context):
             if not obj.getName_prefix():
                 obj.setName_prefix(name.title)
             obj.reindexObject()
-            logger.info(
+            log.info(
                 'Splitting fullname to first and lastname for {0}'.format(
                     obj.getTitle()
                 )
@@ -78,6 +74,6 @@ def apply_referenceable_behavior(context):
     for brain in brains:
         obj = brain.getObject()
         path = '/'.join(obj.getPhysicalPath())
-        logger.info("""Applying referenceable behavior for
+        log.info("""Applying referenceable behavior for
                     object at path %s""", path)
         uid_catalog.catalog_object(obj, path)

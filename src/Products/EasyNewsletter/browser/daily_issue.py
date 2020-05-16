@@ -6,13 +6,9 @@ from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
+from Products.EasyNewsletter import log
 
 import datetime
-import logging
-
-
-log = logging.getLogger("Products.EasyNewsletter: daily-issue")
-
 
 class DailyIssueView(BrowserView):
     """Creates a new issue of EasyNewsletter and sends it"""

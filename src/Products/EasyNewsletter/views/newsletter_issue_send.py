@@ -4,7 +4,8 @@ from datetime import datetime
 from DateTime import DateTime
 from plone import api
 from plone.protect import PostOnly
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from Products.EasyNewsletter.behaviors.plone_user_group_recipients import IPloneUserGroupRecipients  # noqa: E501
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
@@ -16,12 +17,7 @@ from zope.component import subscribers
 
 import emails
 import emails.loader
-import logging
 import transaction
-
-
-log = logging.getLogger('Products.EasyNewsletter')
-
 
 class PloneMessageSendMixin:
     """

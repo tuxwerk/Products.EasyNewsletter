@@ -3,11 +3,10 @@ from AccessControl.SecurityManagement import newSecurityManager
 from Acquisition import aq_inner
 from email_validator import EmailNotValidError
 from email_validator import validate_email
-from logging import getLogger
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter import _
 from Products.EasyNewsletter.config import MESSAGE_CODE
 from Products.EasyNewsletter.content.newsletter import INewsletter
 from Products.EasyNewsletter.content.newsletter_subscriber import INewsletterSubscriber
@@ -30,10 +29,6 @@ try:
 except ImportError:
     # BBB for old plone.protect, default until at least Plone 4.3.7.
     protect = None
-
-
-logger = getLogger("ENL Registration")
-
 
 class SubscriberView(BrowserView):
     """

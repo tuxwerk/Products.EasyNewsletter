@@ -3,7 +3,8 @@ from plone import api
 from plone.protect import PostOnly
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFPlone.resources import add_resource_on_request
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from Products.Five.browser import BrowserView
 from zope.interface import alsoProvides
@@ -17,7 +18,7 @@ class IssueView(BrowserView):
 
     def __call__(self):
         add_resource_on_request(self.request, 'iframeResizer')
-        return super(IssueView, self).__call__()
+        return self.index()
 
     @property
     def here_url(self):

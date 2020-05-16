@@ -5,17 +5,12 @@ from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from zope.component import adapter
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
-
-import logging
-
-
-log = logging.getLogger("Products.EasyNewsletter")
-
 
 @provider(IContextAwareDefaultFactory)
 def get_default_plone_receiver_members(parent):

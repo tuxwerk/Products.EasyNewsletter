@@ -4,6 +4,7 @@ from plone import api
 from plone.dexterity.interfaces import IDexterityContent
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from Products.EasyNewsletter import config
 # from Products.EasyNewsletter.interfaces import IReceiversGroupFilter
 from Products.EasyNewsletter.interfaces import IReceiversMemberFilter
@@ -14,11 +15,6 @@ from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
-
-import logging
-
-
-log = logging.getLogger("Products.EasyNewsletter")
 
 
 @implementer(IVocabularyFactory)

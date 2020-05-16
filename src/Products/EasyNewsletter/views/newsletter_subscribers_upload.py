@@ -4,12 +4,12 @@ from Acquisition import aq_inner
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from Products.Five.browser import BrowserView
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
 
 import csv
-import logging
 import six
 
 
@@ -17,9 +17,6 @@ if six.PY2:
     import codecs
 else:
     from io import TextIOWrapper
-
-log = logging.getLogger('Products.EasyNewsletter')
-
 
 def normalize_id(astring):
     return getUtility(IIDNormalizer).normalize(astring)

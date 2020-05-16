@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from plone import api
-from Products.EasyNewsletter import EasyNewsletterMessageFactory as _  # noqa
+from Products.EasyNewsletter import _
 from Products.EasyNewsletter.content.newsletter_issue import ISendStatus
 from Products.Five.browser import BrowserView
 

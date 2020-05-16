@@ -3,17 +3,12 @@
 from plone import api
 from plone.protect.utils import addTokenToUrl
 from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
 from Products.EasyNewsletter import config
 from Products.EasyNewsletter.interfaces import ISubscriberSource
 from Products.Five.browser import BrowserView
 from zope.component import getUtility
 from zope.component.interfaces import ComponentLookupError
-
-import logging
-
-
-log = logging.getLogger("Products.EasyNewsletter")
-
 
 class NewsletterSubscribers(BrowserView):
     # TODO: we should move these indexes from FieldIndex to ZCTextIndex
