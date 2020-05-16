@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: EasyNewsletter\n"
-"POT-Creation-Date: 2020-05-14 16:42+0000\n"
+"POT-Creation-Date: 2020-05-16 15:19+0000\n"
 "PO-Revision-Date: 2015-07-12 03:05-0430\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -34,6 +34,16 @@ msgstr ""
 msgid "Draft"
 msgstr "Borrador"
 
+#: EasyNewsletter/profiles/default/types/Newsletter.xml
+msgid "Drafts"
+msgstr ""
+
+#: EasyNewsletter/profiles/default/types/Newsletter.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
+msgid "Main page"
+msgstr ""
+
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Make draft"
 msgstr "Hacer borrador"
@@ -45,6 +55,14 @@ msgstr "Hacer maestra"
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Master"
 msgstr "Maestra"
+
+#: EasyNewsletter/profiles/default/types/Newsletter.xml
+msgid "Masters"
+msgstr ""
+
+#: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
+msgid "Preview"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Revert sending"
@@ -60,12 +78,17 @@ msgid "Sending"
 msgstr "Enviando"
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
-msgid "Sending Completed"
-msgstr "Envió completado"
+msgid "Sending completed"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/workflows/enl_issue_workflow/definition.xml
 msgid "Sent"
 msgstr "Enviado"
+
+#: EasyNewsletter/profiles/default/types/Newsletter.xml
+#: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
+msgid "Subscribers"
+msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 msgid "View Statistics"

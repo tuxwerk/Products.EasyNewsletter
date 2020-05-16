@@ -12,14 +12,12 @@ class INewsletterSubscriber(model.Schema):
 
     salutation = schema.Choice(
         title=_(u"EasyNewsletter_label_salutation", default="Salutation"),
-        description=_(u"EasyNewsletter_help_salutation", default=u""),
         vocabulary=u"Products.EasyNewsletter.Salutations",
         required=False,
     )
 
     name_prefix = schema.TextLine(
         title=_(u"EasyNewsletter_label_name_prefix", default=u"Name Prefix"),
-        description=_(u"EasyNewsletter_help_name_prefix", default=u""),
         default=u"",
         required=False,
     )
@@ -30,7 +28,8 @@ class INewsletterSubscriber(model.Schema):
     )
 
     lastname = schema.TextLine(
-        title=_(u"EasyNewsletter_label_lastname", default=u"Last Name"), required=False
+        title=_(u"EasyNewsletter_label_lastname", default=u"Last Name"),
+        required=False
     )
 
     organization = schema.TextLine(

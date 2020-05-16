@@ -43,7 +43,7 @@
           <input class="easynewsletter_text" name="organization"/>
         </div>
         <div class="field">
-          <label for="subscriber" i18n:translate="">E-Mail</label>
+          <label for="subscriber" i18n:translate="">Email address</label>
           <span class="required"></span>
           <input class="easynewsletter_text" name="subscriber" required="required"/>
         </div>

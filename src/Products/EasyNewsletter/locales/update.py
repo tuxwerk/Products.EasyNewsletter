@@ -8,7 +8,7 @@ package_name = 'Products.EasyNewsletter'
 package_domain = 'EasyNewsletter'
 locale_path = os.path.dirname(os.path.realpath(__file__))
 target_path = os.path.abspath(os.path.join(locale_path, os.pardir))
-i18ndude = './bin/i18ndude'
+i18ndude = 'i18ndude'
 
 
 def locale_folder_setup(domain=None):

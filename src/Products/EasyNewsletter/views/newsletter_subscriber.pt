@@ -14,9 +14,9 @@
     <p tal:content="context/salutation">Mr.</p>
     <label i18n:translate="name_prefix">Prefix</label>
     <p tal:content="context/name_prefix">Dr.</p>
-    <label i18n:translate="firstname">First name</label>
+    <label i18n:translate="firstname">First Name</label>
     <p tal:content="context/firstname">John</p>
-    <label i18n:translate="lastname">Last name</label>
+    <label i18n:translate="lastname">Last Name</label>
     <p tal:content="context/lastname">Doe</p>
     <label i18n:translate="language">Language</label>
     <p tal:content="context/nl_language|nothing">Mr.</p>

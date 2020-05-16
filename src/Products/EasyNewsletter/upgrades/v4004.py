@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from . import logger
+from . import log
 from plone import api
 
 

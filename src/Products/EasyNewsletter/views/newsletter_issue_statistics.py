@@ -24,7 +24,7 @@ class NewsletterIssueStatistics(BrowserView):
                     request=self.request,
                     type='info',
                 )
-        return super(NewsletterIssueStatistics, self).__call__()
+        return self.index()
 
     def receivers(self):
         status_adapter = ISendStatus(self.context)
@@ -35,5 +35,6 @@ class NewsletterIssueStatistics(BrowserView):
         records = sorted(records, key=lambda x: x.get('status', {}).get('datetime', now))
         self.failed = len(status_adapter.get_keys(successful=False))
         self.successful = len(status_adapter.get_keys(successful=True))
+        self.total_sent = self.successful + self.failed
         self.total = len(records)
         return records

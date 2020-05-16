@@ -14,10 +14,10 @@
 
       <tal:records tal:condition="records">
         <p i18n:translate="easynewsletter_records_label">
-          A total of <span i18n:name="total" tal:content="view/total | python:0">[total]</span> emails have been sent, <span i18n:name="successful" tal:content="view/successful | python:0">[successful]</span> have been successful and <span i18n:name="failed" tal:content="view/failed | python:0">[total]</span> have been failed.
+          A total of <span i18n:name="total_sent" tal:content="view/total_sent | python:0">[total_sent]</span> emails have been sent to <span i18n:name="total" tal:content="view/total | python:0">[total]</span> recipients, <span i18n:name="successful" tal:content="view/successful | python:0">[successful]</span> have been successful and <span i18n:name="failed" tal:content="view/failed | python:0">[total]</span> have been failed.
         </p>
 
-        <table class="listing">
+        <table class="listing small">
           <thead>
             <tr>
               <th i18n:translate="">Date</th>
@@ -34,8 +34,8 @@
                   tal:content="record/status/datetime">[date]</time></td>
               <td tal:content="record/email | nothing">[email]</td>
               <td tal:define="status record/status/successful | nothing">
-                <span i18n:translate="" tal:condition="python: status and status == True">Successful</span>
-                <span i18n:translate="" tal:condition="python: status and status == False">Failed</span>
+                <span i18n:translate="" tal:condition="python: status == True">Successful</span>
+                <span i18n:translate="" tal:condition="python: status == False">Failed</span>
               </td>
               <td tal:define="error record/status/error | nothing">
                 <span tal:condition="error" tal:content="error">[error]</span>

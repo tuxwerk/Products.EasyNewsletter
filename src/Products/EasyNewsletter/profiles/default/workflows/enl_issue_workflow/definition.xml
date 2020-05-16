@@ -166,7 +166,7 @@
                 after_script="">
         <action
             url="%(content_url)s/content_status_modify?workflow_action=revert_sending"
-            category="workflow">Revert Sending
+            category="workflow">Revert sending
         </action>
         <guard>
             <guard-permission>Manage portal</guard-permission>
@@ -188,13 +188,13 @@
     </transition>
 
     <transition transition_id="sending_completed"
-                title="Sending Completed" i18n:attributes="title"
+                title="Sending completed" i18n:attributes="title"
                 new_state="sent"
                 trigger="USER"
                 before_script=""
                 after_script="">
         <action url="%(content_url)s/content_status_modify?workflow_action=sending_completed"
-                category="workflow">Sending Completed
+                category="workflow">Sending completed
         </action>
         <guard>
             <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>

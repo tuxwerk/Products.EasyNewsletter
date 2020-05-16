@@ -31,46 +31,26 @@ msgstr ""
 msgid "A Newsletter Subscriber."
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscriber.py:14
-msgid "A small message"
-msgstr ""
-
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:116
 msgid "Action"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:20
+#: EasyNewsletter/views/newsletter_subscribers.pt:21
 msgid "Add subscriber"
 msgstr ""
 
-#: EasyNewsletter/browser/controlpanel.py:14
-msgid "Allowed content aggregation types"
-msgstr ""
-
-#: EasyNewsletter/browser/registration.py:304
+#: EasyNewsletter/browser/registration.py:279
 #: EasyNewsletter/views/newsletter_unsubscribe.py:39
 msgid "An error occured"
 msgstr "Er is een fout opgetreden."
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:7
-msgid "Archive"
-msgstr "Archief"
 
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:44
 msgid "CSV file"
 msgstr "CSV-bestand"
 
-#: EasyNewsletter/config.py:59
+#: EasyNewsletter/config.py:52
 msgid "Confirm your subscription on ${portal_url}"
 msgstr "Bevestig uw inschrijving op ${portal_url}"
-
-#: EasyNewsletter/browser/controlpanel.py:19
-msgid "Content type"
-msgstr ""
-
-#: EasyNewsletter/browser/controlpanel.py:15
-msgid "Content types which will be visbile in the Content aggregation sources reference field."
-msgstr ""
 
 #: EasyNewsletter/content/newsletter_issue.py:76
 msgid "Customizations"
@@ -80,21 +60,9 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: EasyNewsletter/tests/test_vocab_output_templates.py:31
-msgid "Default output template"
-msgstr ""
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:146
+#: EasyNewsletter/views/newsletter_subscribers.pt:139
 msgid "Delete"
 msgstr "Verwijderen"
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:15
-msgid "Drafts"
-msgstr "Concepten"
-
-#: EasyNewsletter/portlets/subscriber.pt:46
-msgid "E-Mail"
-msgstr "E-mail"
 
 #. Default: "Choose sources to aggregate newsletter content from."
 #: EasyNewsletter/content/newsletter.py:117
@@ -251,24 +219,16 @@ msgstr ""
 msgid "EasyNewsletter_enablesendbutton_label"
 msgstr "Verzend knop activeren"
 
-#: EasyNewsletter/content/newsletter_subscriber.py:22
-msgid "EasyNewsletter_help_name_prefix"
-msgstr "Titulatuur"
-
 #. Default: "Choose Plone Groups which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:70
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:65
 #, fuzzy
 msgid "EasyNewsletter_help_ploneReceiverGroups"
 msgstr "Kies de groepen die deze nieuwsbrief opgestuurd krijgen. Al verzonden edities worden niet aangepast of opnieuw verzonden."
 
 #. Default: "Choose Plone Members which should receive                     the newsletter. Changing this setting does not affect                     already existing issues."
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:54
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:49
 msgid "EasyNewsletter_help_ploneReceiverMembers"
 msgstr "Kies de gebruikers die deze nieuwsbrief opgestuurd krijgen. Al verzonden edities worden niet aangepast of opnieuw verzonden."
-
-#: EasyNewsletter/content/newsletter_subscriber.py:15
-msgid "EasyNewsletter_help_salutation"
-msgstr "Begroeting"
 
 #. Default: "Sender address of the newsletter email. If you let this field empty, the default sender email address will be used."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:46
@@ -291,37 +251,37 @@ msgid "EasyNewsletter_help_testreceiverForm"
 msgstr "Test-e-mail. Indien leeg, dan wordt de standaard test-e-mailadres gebruikt."
 
 #. Default: "Email"
-#: EasyNewsletter/content/newsletter_subscriber.py:42
+#: EasyNewsletter/content/newsletter_subscriber.py:41
 msgid "EasyNewsletter_label_email"
 msgstr "E-mail"
 
 #. Default: "First Name"
-#: EasyNewsletter/content/newsletter_subscriber.py:28
+#: EasyNewsletter/content/newsletter_subscriber.py:26
 msgid "EasyNewsletter_label_firstname"
 msgstr "Voornaam"
 
 #. Default: "Last Name"
-#: EasyNewsletter/content/newsletter_subscriber.py:33
+#: EasyNewsletter/content/newsletter_subscriber.py:31
 msgid "EasyNewsletter_label_lastname"
 msgstr "Achternaam"
 
 #. Default: "Name Prefix"
-#: EasyNewsletter/content/newsletter_subscriber.py:21
+#: EasyNewsletter/content/newsletter_subscriber.py:20
 msgid "EasyNewsletter_label_name_prefix"
 msgstr "Titulatuur"
 
 #. Default: "Organization"
-#: EasyNewsletter/content/newsletter_subscriber.py:37
+#: EasyNewsletter/content/newsletter_subscriber.py:36
 msgid "EasyNewsletter_label_organization"
 msgstr "Bedrijf/Organisatie"
 
 #. Default: "Plone Groups to receive the newsletter"
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:66
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:61
 msgid "EasyNewsletter_label_ploneReceiverGroups"
 msgstr "Groepen die de nieuwsbrief ontvangen."
 
 #. Default: "Plone Members to receive the newsletter"
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:50
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:45
 msgid "EasyNewsletter_label_ploneReceiverMembers"
 msgstr "Gebruikers die de nieuwsbrief ontvangen."
 
@@ -355,7 +315,7 @@ msgstr "Test e-mail"
 msgid "Edit"
 msgstr ""
 
-#: EasyNewsletter/portlets/subscriber.py:248
+#: EasyNewsletter/portlets/subscriber.py:224
 msgid "Edit Newsletter portlet"
 msgstr "Wijzigen nieuwsbrief-portlet"
 
@@ -364,8 +324,11 @@ msgstr "Wijzigen nieuwsbrief-portlet"
 msgid "Email"
 msgstr "E-mail"
 
-#: EasyNewsletter/browser/subscribers.py:317
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:132
+#: EasyNewsletter/portlets/subscriber.pt:46
+msgid "Email address"
+msgstr ""
+
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:129
 msgid "Email existed, updated subscriber."
 msgstr ""
 
@@ -373,7 +336,7 @@ msgstr ""
 msgid "Error Message"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:32
+#: EasyNewsletter/views/newsletter_subscribers.pt:33
 msgid "Export"
 msgstr ""
 
@@ -386,41 +349,16 @@ msgstr ""
 msgid "First Name"
 msgstr "Voornaam"
 
-#: EasyNewsletter/tests/test_vocab_aggregation_templates.py:31
-msgid "Generic Listing"
-msgstr ""
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:26
+#: EasyNewsletter/views/newsletter_subscribers.pt:27
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:13
 msgid "Import"
 msgstr "Importeren"
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:7
-msgid "Issue archive"
-msgstr "Archief van voorgaande edities"
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:15
-msgid "Issue drafts"
-msgstr "Nieuwsbrief concepten"
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:23
-msgid "Issue masters"
-msgstr "Nieuwsbrief masters"
-
-#: EasyNewsletter/tests/test_vocab_plone_users.py:38
-msgid "Jane Doe - jane@plone.org"
-msgstr ""
 
 #: EasyNewsletter/views/newsletter_subscribers_upload.pt:78
 msgid "Last Name"
 msgstr "Achternaam"
 
-#: EasyNewsletter/viewlets/newsletter_actions.pt:23
-msgid "Masters"
-msgstr "Masters"
-
-#: EasyNewsletter/browser/subscribers.py:293
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:108
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:105
 msgid "More than one subscriber with this email address existed, subscriber info was NOT updated. Check manually!"
 msgstr ""
 
@@ -428,7 +366,6 @@ msgstr ""
 msgid "Mr"
 msgstr ""
 
-#: EasyNewsletter/tests/test_vocab_salutations.py:32
 #: EasyNewsletter/vocabularies/salutations.py:25
 msgid "Ms"
 msgstr ""
@@ -449,21 +386,23 @@ msgstr ""
 msgid "Newsletter issue statistics have been reset."
 msgstr ""
 
-#: EasyNewsletter/portlets/subscriber.py:183
+#: EasyNewsletter/portlets/subscriber.py:166
 msgid "Newsletter subscriber portlet"
 msgstr "Nieuwsbrief abonneren portlet"
 
-#: EasyNewsletter/views/newsletter_issue_send.py:213
-msgid "Newsletter was sent to ({0}) receivers. ({1}) errors occurred!{2}"
+#: EasyNewsletter/views/newsletter_issue_send.py:209
+msgid "Newsletter was sent to ({0}) receivers. ({1}) errors occurred! {2}"
 msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:254
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:68
+#: EasyNewsletter/views/newsletter_issue_send.py:184
+msgid "Newsletter was sent to test recipients"
+msgstr ""
+
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:65
 msgid "No file specified."
 msgstr "Geen bestand opgegeven."
 
-#: EasyNewsletter/browser/subscribers.py:208
-#: EasyNewsletter/views/newsletter_subscribers.py:95
+#: EasyNewsletter/views/newsletter_subscribers.py:91
 msgid "No subscriber selected!"
 msgstr "Er is geen abonnee geselecteerd!"
 
@@ -475,11 +414,15 @@ msgstr "Organisatie"
 msgid "Personalization"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:195
+#: EasyNewsletter/views/newsletter_issue_send.py:205
+msgid "Please check the log files, for more details!"
+msgstr ""
+
+#: EasyNewsletter/browser/registration.py:176
 msgid "Please enter a valid email address."
 msgstr "Gelieve een geldig e-mailadres in te vullen of schrijf je opnieuw in om een nieuwe bevestigings-e-mail te ontvangen."
 
-#: EasyNewsletter/browser/registration.py:292
+#: EasyNewsletter/browser/registration.py:267
 #: EasyNewsletter/views/newsletter_unsubscribe.py:24
 msgid "Please use the correct unsubscribe url!"
 msgstr ""
@@ -488,7 +431,7 @@ msgstr ""
 msgid "Prefix"
 msgstr "Titel"
 
-#: EasyNewsletter/vocabularies/plone_users.py:49
+#: EasyNewsletter/vocabularies/plone_users.py:45
 msgid "Property email: \"{0}\" is not an email!"
 msgstr ""
 
@@ -496,7 +439,7 @@ msgstr ""
 msgid "Reason for failure"
 msgstr "Reden van de fout"
 
-#: EasyNewsletter/behaviors/plone_user_group_recipients.py:45
+#: EasyNewsletter/behaviors/plone_user_group_recipients.py:40
 #: EasyNewsletter/content/newsletter.py:76
 msgid "Recipients"
 msgstr ""
@@ -505,7 +448,7 @@ msgstr ""
 msgid "Salutation"
 msgstr "Aanspreking"
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:49
+#: EasyNewsletter/views/newsletter_subscribers.pt:50
 msgid "Search"
 msgstr "Zoeken"
 
@@ -521,22 +464,13 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:40
+#: EasyNewsletter/views/newsletter_subscribers.pt:41
 msgid "Subscriber Search"
 msgstr "Zoek abonnee's"
 
-#: EasyNewsletter/browser/subscribers.py:350
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:166
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:163
 msgid "Subscriber created."
 msgstr ""
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:31
-msgid "Subscriberlist"
-msgstr "Lijst van abonnees"
-
-#: EasyNewsletter/viewlets/newsletter_actions.pt:31
-msgid "Subscribers"
-msgstr "Abonnees"
 
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:37
 msgid "Successful"
@@ -557,33 +491,23 @@ msgstr ""
 msgid "The CSV file must contain the header and follow this format"
 msgstr "Het CSV bestand dient deze hoofding te bevatten en dient de structuur te respecteren"
 
-#: EasyNewsletter/browser/issue.py:74
-#: EasyNewsletter/views/newsletter_issue_send.py:82
+#: EasyNewsletter/views/newsletter_issue_send.py:78
 msgid "The issue has been generated and sent to the mail server."
 msgstr ""
 
-#: EasyNewsletter/browser/issue.py:64
-msgid "The issue sending has been initiated in the background."
-msgstr "De verzending is geïnitialiseerd in de achtergrond."
-
-#: EasyNewsletter/browser/issue.py:55
-#: EasyNewsletter/views/newsletter_issue_send.py:63
+#: EasyNewsletter/views/newsletter_issue_send.py:59
 msgid "The issue test sending has been initiated."
 msgstr "De test verzending is geïnitialiseerd."
 
-#: EasyNewsletter/browser/subscribers.py:275
-msgid "The number of items in the line is not correct.                         It should be 7. Check your CSV file."
-msgstr "Het aantal elementen in de regel is niet juist. Het zouden er 7 moeten zijn. Controleer het CSV bestand."
-
-#: EasyNewsletter/views/newsletter_subscribers.pt:75
+#: EasyNewsletter/views/newsletter_subscribers.pt:76
 msgid "There are ${subscribers_count} subscribers"
 msgstr "Er zijn ${subscribers_count} abonnees"
 
-#: EasyNewsletter/portlets/subscriber.py:249
+#: EasyNewsletter/portlets/subscriber.py:225
 msgid "This portlet displays the subscriber add form of a newsletter."
 msgstr "Deze portlet toont een inschrijvingsformulier voor een nieuwsbrief."
 
-#: EasyNewsletter/views/newsletter_subscribers.pt:41
+#: EasyNewsletter/views/newsletter_subscribers.pt:42
 msgid "This search affects only local subscribers, not those coming from external sources."
 msgstr ""
 
@@ -591,70 +515,50 @@ msgstr ""
 msgid "Title"
 msgstr "Titel"
 
-#: EasyNewsletter/portlets/subscriber.py:52
+#: EasyNewsletter/portlets/subscriber.py:47
 msgid "Title for the portlet."
 msgstr "Titel voor de portlet."
-
-#: EasyNewsletter/tests/test_vocab_plone_groups.py:35
-msgid "VIP"
-msgstr ""
 
 #: EasyNewsletter/profiles/default/types/Newsletter_Issue.xml
 #: EasyNewsletter/profiles/default/types/Newsletter_Subscriber.xml
 msgid "View"
 msgstr ""
 
-#: EasyNewsletter/browser/registration.py:272
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:48
+#: EasyNewsletter/browser/registration.py:247
 msgid "We send you an email, please confirm this unsubscription."
 msgstr "Wij hebben u een e-mail met een afmeldlink verzonden."
 
-#: EasyNewsletter/browser/subscribers.py:265
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:78
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:75
 msgid "Wrong specification of the CSV file. Please correct it and retry."
 msgstr "Het CSV-bestand bevat fouten. Corrigeer en probeer opnieuw."
 
-#: EasyNewsletter/browser/registration.py:307
+#: EasyNewsletter/browser/registration.py:282
 #: EasyNewsletter/views/newsletter_unsubscribe.py:46
 msgid "You have been unsubscribed."
 msgstr "U bent uitgeschreven."
 
-#: EasyNewsletter/browser/registration.py:278
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:56
+#: EasyNewsletter/browser/registration.py:253
 msgid "Your email address could not be found in subscribers."
 msgstr "Uw e-mail kon niet worden gevonden in de abonnees."
 
-#: EasyNewsletter/browser/registration.py:95
+#: EasyNewsletter/browser/registration.py:70
 msgid "Your email address is already registered."
 msgstr "Je e-mailadres is reeds geregistreerd."
 
-#: EasyNewsletter/browser/registration.py:142
+#: EasyNewsletter/browser/registration.py:123
 msgid "Your email has been registered.                 A confirmation email was sent to your address. Please check                 your inbox and click on the link in the email in order to                 confirm your subscription."
 msgstr "Je e-mail werd geregistreerd. Een bevestigings-e-mail werd verzonden naar je e-mailadres. Gelieve je inbox te controleren en te klikken op de link in de e-mail om je registratie te bevestigen."
 
-#: EasyNewsletter/browser/registration.py:191
+#: EasyNewsletter/browser/registration.py:172
 msgid "Your subscription was successfully confirmed."
 msgstr "Uw inschrijving is bevestigd."
 
-#. Default: "Action"
-#: EasyNewsletter/views/newsletter_subscribers.pt:95
-msgid "action"
-msgstr "Actie"
-
-#: EasyNewsletter/browser/registration.py:268
-#: EasyNewsletter/views/newsletter_unsubscribe_form.py:44
+#: EasyNewsletter/browser/registration.py:243
 msgid "confirm newsletter unsubscription"
 msgstr "bevestig afmelding van de nieuwsbrief"
 
-#. Default: "This folder has no visible items. To add content, press the add button, or paste content from another location."
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:57
-msgid "description_no_visible_items_add_paste"
-msgstr "Deze folder heeft geen zichtbare objecten. Om inhoud toe te voegen klik op de knop \"toevoegen\" of plak inhoud van een andere locatie."
-
 #. Default: "Back to newsletter"
-#: EasyNewsletter/skins/EasyNewsletter/enl_drafts_view.pt:23
-#: EasyNewsletter/skins/EasyNewsletter/enl_masters_view.pt:25
-#: EasyNewsletter/skins/EasyNewsletter/enl_template_view.pt:22
+#: EasyNewsletter/views/newsletter_issue_send_form.pt:9
 msgid "easynewsletter_backtonewsletter_label"
 msgstr "Terug naar de nieuwsbrief"
 
@@ -663,48 +567,21 @@ msgstr "Terug naar de nieuwsbrief"
 msgid "easynewsletter_button_label"
 msgstr "Inschrijven"
 
-#. Default: "Drafts are newsletter editions that are still in the writing process and unsent."
-#: EasyNewsletter/skins/EasyNewsletter/enl_drafts_view.pt:29
-msgid "easynewsletter_drafts_description"
-msgstr "Concepten zijn nieuwsbrief-editites waaraan u schrijft en die nog niet verstuurd zijn."
-
-#. Default: "Drafts"
-#: EasyNewsletter/skins/EasyNewsletter/enl_drafts_view.pt:20
-msgid "easynewsletter_drafts_label"
-msgstr "Concept-edities"
-
-#. Default: "Masters are saved newsletters that are hidden from normal view which you can re-use as a basis when you start writing new editions."
-#: EasyNewsletter/skins/EasyNewsletter/enl_masters_view.pt:31
-msgid "easynewsletter_masters_description"
-msgstr "Masters zijn opgeslagen nieuwsbrieven die voor gewone gebruikers niet zichtbaar zijn en welke u kunt gebruiken als basis voor de inhoud van nieuwe uitgaven van de nieuwsbrief."
-
-#. Default: "Masters"
-#: EasyNewsletter/skins/EasyNewsletter/enl_masters_view.pt:20
-msgid "easynewsletter_masters_label"
-msgstr "Masters"
-
 #. Default: "The newsletter was already sent."
 #: EasyNewsletter/views/newsletter_issue_send_form.pt:123
 msgid "easynewsletter_newslettersent_label"
 msgstr "De nieuwsbrief is reeds verzonden."
 
-#. Default: "There are no issues."
-#: EasyNewsletter/browser/templates/newsletter.pt:49
-#: EasyNewsletter/skins/EasyNewsletter/easynewsletter_view.pt:49
+#. Default: "There are no issues in this archive."
 #: EasyNewsletter/views/newsletter.pt:17
+#, fuzzy
 msgid "easynewsletter_non_issues_label"
 msgstr "Er zijn geen edities"
 
 #. Default: "There are no drafts."
-#: EasyNewsletter/skins/EasyNewsletter/enl_drafts_view.pt:34
 #: EasyNewsletter/views/newsletter_drafts.pt:11
 msgid "easynewsletter_nondrafts_label"
 msgstr "Er zijn geen concept-edities."
-
-#. Default: "There are no masters."
-#: EasyNewsletter/skins/EasyNewsletter/enl_masters_view.pt:37
-msgid "easynewsletter_nonmasters_label"
-msgstr "Er zijn geen Masters."
 
 #. Default: "There are no statistics available."
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:10
@@ -712,11 +589,11 @@ msgid "easynewsletter_nonrecords_label"
 msgstr ""
 
 #. Default: "There are no subscribers."
-#: EasyNewsletter/views/newsletter_subscribers.pt:58
+#: EasyNewsletter/views/newsletter_subscribers.pt:59
 msgid "easynewsletter_nosubscribers_label"
 msgstr "Er zijn geen abonnees."
 
-#. Default: "A total of ${total} emails have been sent, ${successful} have been successful and ${failed} have been failed."
+#. Default: "A total of ${total_sent} emails have been sent to ${total} recipients, ${successful} have been successful and ${failed} have been failed."
 #: EasyNewsletter/views/newsletter_issue_statistics.pt:17
 msgid "easynewsletter_records_label"
 msgstr ""
@@ -736,13 +613,19 @@ msgstr "Verzend nieuwsbrief"
 msgid "easynewsletter_test_button"
 msgstr "Test nieuwsbrief"
 
+#. Default: "Email"
+#: EasyNewsletter/views/newsletter_subscriber.pt:9
+#: EasyNewsletter/views/newsletter_subscribers.pt:88
+msgid "email"
+msgstr ""
+
 #. Default: "Your email has been registered. A confirmation email was sent to your address. Please check your inbox and click  on the link in the email in order to confirm your subscription."
-#: EasyNewsletter/config.py:36
+#: EasyNewsletter/config.py:31
 msgid "email_added"
 msgstr "Uw e-mailadres is geregistreerd. Een e-mail is verzonden ter bevestiging. Controleer alstublieft uw inbox en klik op de link om het abonnement te bevestigen."
 
 #. Default: "Your email address is already registered."
-#: EasyNewsletter/config.py:45
+#: EasyNewsletter/config.py:40
 msgid "email_exists"
 msgstr "Uw e-mailadres is reeds geregistreerd."
 
@@ -769,43 +652,33 @@ msgid "enl_label_output_template"
 msgstr ""
 
 #. Default: "The number of columns in the row is not correct.                         It should be 6. Check your CSV file."
-#: EasyNewsletter/views/newsletter_subscribers_upload.py:88
+#: EasyNewsletter/views/newsletter_subscribers_upload.py:85
 msgid "enl_subscriber_upload_wrong_number_of_columns"
 msgstr ""
 
 #. Default: "First Name"
-#: EasyNewsletter/views/newsletter_subscribers.pt:90
-msgid "firstname_listing"
-msgstr "Voornaam"
-
-#. Default: "Up one level"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:40
-msgid "go_to_parent_url"
-msgstr "Ga een nivieau naar boven"
+#: EasyNewsletter/views/newsletter_subscriber.pt:17
+#: EasyNewsletter/views/newsletter_subscribers.pt:92
+msgid "firstname"
+msgstr ""
 
 #. Default: "Search for the accordingly newsletter, choose one and apply."
-#: EasyNewsletter/portlets/subscriber.py:63
+#: EasyNewsletter/portlets/subscriber.py:58
 msgid "help_newsletter_path"
 msgstr "Zoek de betreffende nieuwsbrief en selecteer deze."
 
 #. Default: "Please enter a valid email address."
-#: EasyNewsletter/config.py:43
+#: EasyNewsletter/config.py:38
 msgid "invalid_email"
 msgstr "Vul alstublieft een geldig e-mailadres in"
 
 #. Default: "Please enter a valid email address."
-#: EasyNewsletter/config.py:47
+#: EasyNewsletter/config.py:42
 msgid "invalid_hashkey"
 msgstr "Vul alstublieft een geldig e-mailadres in"
 
-#. Default: "Issues"
-#: EasyNewsletter/browser/templates/newsletter.pt:46
-#: EasyNewsletter/skins/EasyNewsletter/easynewsletter_view.pt:46
-msgid "issues_label"
-msgstr "Edities"
-
 #. Default: "External subscriber lookup failed"
-#: EasyNewsletter/views/newsletter_subscribers.py:77
+#: EasyNewsletter/views/newsletter_subscribers.py:73
 msgid "label_ext_subcriber_source_failed"
 msgstr ""
 
@@ -815,104 +688,66 @@ msgid "label_issueHideImage"
 msgstr ""
 
 #. Default: "Ask for the firstname as well"
-#: EasyNewsletter/portlets/subscriber.py:89
+#: EasyNewsletter/portlets/subscriber.py:84
 msgid "label_newletter_show_firstname"
 msgstr "Vraag ook naar de voornaam"
 
 #. Default: "Ask for the name of the subscriber"
-#: EasyNewsletter/portlets/subscriber.py:81
+#: EasyNewsletter/portlets/subscriber.py:76
 msgid "label_newletter_show_name"
 msgstr "Vraag voor de naam van de abonnee"
 
 #. Default: "Ask for the name prefix (aka title) as well"
-#: EasyNewsletter/portlets/subscriber.py:97
+#: EasyNewsletter/portlets/subscriber.py:92
 msgid "label_newletter_show_name_prefix"
 msgstr "Vraag ook naar titulatuur"
 
 #. Default: "Display field to enter company/organization of subscriber"
-#: EasyNewsletter/portlets/subscriber.py:106
+#: EasyNewsletter/portlets/subscriber.py:101
 msgid "label_newletter_show_organization"
 msgstr "Invulveld om bedrijf/organisatie in te geven"
 
 #. Default: "Ask for the salutation of the subscriber"
-#: EasyNewsletter/portlets/subscriber.py:72
+#: EasyNewsletter/portlets/subscriber.py:67
 msgid "label_newletter_show_salutation"
 msgstr "Vraag voor de begroeting van de abonnee"
 
-#. Default: "Display an unsubscribe link in portlet footer"
-#: EasyNewsletter/portlets/subscriber.py:115
-msgid "label_newletter_show_unsubscribe_link"
-msgstr "Geef een afmeldlink weer in portlet"
-
 #. Default: "Path to Newsletter"
-#: EasyNewsletter/portlets/subscriber.py:62
+#: EasyNewsletter/portlets/subscriber.py:57
 msgid "label_newsletter_path"
 msgstr "Pad naar de nieuwsbrief"
 
 #. Default: "Mr."
-#: EasyNewsletter/config.py:25
+#: EasyNewsletter/config.py:20
 msgid "label_salutation_mr"
 msgstr "De heer"
 
 #. Default: "Ms."
-#: EasyNewsletter/config.py:24
+#: EasyNewsletter/config.py:19
 msgid "label_salutation_ms"
 msgstr "Mevrouw"
 
-#. Default: "Select all items"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:86
-msgid "label_select_all_items"
-msgstr "Selecteer alle items"
-
 #. Default: "Additional info, like terms and conditions.\nIt can contain HTML, the following tags are allowed: {0}, "
-#: EasyNewsletter/portlets/subscriber.py:124
+#: EasyNewsletter/portlets/subscriber.py:110
 msgid "label_subscriber_portlet_additional_info"
 msgstr ""
 
 #. Default: "Description"
-#: EasyNewsletter/portlets/subscriber.py:56
+#: EasyNewsletter/portlets/subscriber.py:51
 msgid "label_subscriber_portlet_description"
 msgstr "Beschrijving"
 
 #. Default: "Language"
-#: EasyNewsletter/views/newsletter_subscribers.pt:92
+#: EasyNewsletter/views/newsletter_subscriber.pt:21
+#: EasyNewsletter/views/newsletter_subscribers.pt:94
 msgid "language"
 msgstr "Taal"
 
 #. Default: "Last Name"
-#: EasyNewsletter/views/newsletter_subscribers.pt:91
-msgid "lastname_listing"
-msgstr "Achternaam"
-
-#. Default: "Modified"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:105
-msgid "listingheader_modified"
-msgstr "Gewijzigd"
-
-#. Default: "Order"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:112
-msgid "listingheader_order"
-msgstr "Volgorde"
-
-#. Default: "Size"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:102
-msgid "listingheader_size"
-msgstr "Grootte"
-
-#. Default: "State"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:108
-msgid "listingheader_status"
-msgstr "Status"
-
-#. Default: "Title"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:98
-msgid "listingheader_title"
-msgstr "Titel"
-
-#. Default: "Email"
-#: EasyNewsletter/views/newsletter_subscribers.pt:87
-msgid "mail"
-msgstr "E-mail"
+#: EasyNewsletter/views/newsletter_subscriber.pt:19
+#: EasyNewsletter/views/newsletter_subscribers.pt:93
+msgid "lastname"
+msgstr ""
 
 #. Default: "Mr"
 #: EasyNewsletter/portlets/subscriber.pt:23
@@ -935,9 +770,10 @@ msgid "name"
 msgstr "Naam"
 
 #. Default: "Prefix"
-#: EasyNewsletter/views/newsletter_subscribers.pt:89
-msgid "name_prefix_listing"
-msgstr "Titel"
+#: EasyNewsletter/views/newsletter_subscriber.pt:15
+#: EasyNewsletter/views/newsletter_subscribers.pt:91
+msgid "name_prefix"
+msgstr ""
 
 #. Default: "Newsletter archive"
 #: EasyNewsletter/views/newsletter.pt:14
@@ -950,9 +786,10 @@ msgid "not_created_subscribers"
 msgstr "Niet geïmporteerde abonnees"
 
 #. Default: "Organization"
-#: EasyNewsletter/views/newsletter_subscribers.pt:93
-msgid "organization_listing"
-msgstr "Organisatie"
+#: EasyNewsletter/views/newsletter_subscriber.pt:23
+#: EasyNewsletter/views/newsletter_subscribers.pt:95
+msgid "organization"
+msgstr ""
 
 #. Default: "Organization"
 #: EasyNewsletter/portlets/subscriber.pt:42
@@ -966,27 +803,28 @@ msgid "read_more"
 msgstr ""
 
 #. Default: "Salutation"
-#: EasyNewsletter/views/newsletter_subscribers.pt:88
-msgid "salutation_listing"
-msgstr "Aanhef"
+#: EasyNewsletter/views/newsletter_subscriber.pt:13
+#: EasyNewsletter/views/newsletter_subscribers.pt:90
+msgid "salutation"
+msgstr ""
 
 #. Default: "Source"
-#: EasyNewsletter/views/newsletter_subscribers.pt:94
+#: EasyNewsletter/views/newsletter_subscribers.pt:96
 msgid "source"
 msgstr "Bron"
 
-#. Default: "Subtopics"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:34
-msgid "sub_topics_label"
-msgstr "subverzamelingen"
+#. Default: "Subscribed at"
+#: EasyNewsletter/views/newsletter_subscriber.pt:11
+#: EasyNewsletter/views/newsletter_subscribers.pt:89
+msgid "subscribed_at"
+msgstr ""
 
-#: EasyNewsletter/browser/subscribers.py:215
-#: EasyNewsletter/views/newsletter_subscribers.py:102
+#: EasyNewsletter/views/newsletter_subscribers.py:98
 msgid "subscriber/s deleted successfully"
 msgstr "abonnee(s) succesvol verwijderd"
 
 #. Default: "Your subscription was successfully confirmed."
-#: EasyNewsletter/config.py:49
+#: EasyNewsletter/config.py:44
 msgid "subscription_confirmed"
 msgstr "Uw inschrijving is bevestigd."
 
@@ -995,30 +833,6 @@ msgstr "Uw inschrijving is bevestigd."
 #, fuzzy
 msgid "sucessfully_created_subscribers"
 msgstr "Abonnees met succes aangemaakt"
-
-#. Default: "Content listing"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:78
-msgid "summary_content_listing"
-msgstr "Inhoud samenvatting"
-
-#. Default: "expired"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:194
-msgid "time_expired"
-msgstr "verstreken"
-
-#. Default: "Move item down"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:227
-msgid "title_move_item_down"
-msgstr "Plaats item naar beneden"
-
-#. Default: "Move item up"
-#: EasyNewsletter/skins/EasyNewsletter/enl_subtopics.pt:220
-msgid "title_move_item_up"
-msgstr "Plaats item naar boven"
-
-#: EasyNewsletter/portlets/subscriber.pt:59
-msgid "unsubscribe"
-msgstr "Abonnement beëindigen"
 
 #: EasyNewsletter/content/newsletter.py:200
 msgid "{{SUBSCRIBER_SALUTATION}}<br />"
