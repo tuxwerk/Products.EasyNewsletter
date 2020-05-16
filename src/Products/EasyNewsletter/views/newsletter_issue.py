@@ -15,10 +15,3 @@ class NewsletterIssue(BrowserView):
     @property
     def here_url(self):
         return self.context.absolute_url()
-
-    def refresh_issue(self, REQUEST=None):  # noqa
-        """Refresh the aggregate body when using collections.
-        """
-        alsoProvides(self.request, IDisableCSRFProtection)
-        self.context.loadContent()
-        self.request.response.redirect(self.context.absolute_url())

@@ -9,15 +9,6 @@ class IProductsEasyNewsletterLayer(IDefaultBrowserLayer):
     """
 
 
-class IIssueView(Interface):
-    """
-    """
-
-    def get_unpersonalized_body(self):
-        """
-        """
-
-
 class ISubscriberSource(Interface):
     """ Interface for utilities providing a list of subscribers.
         Such an utility should be registered as named utility since
