@@ -85,6 +85,12 @@ class INewsletterIssue(model.Schema):
         ],
     )
 
+    title = schema.TextLine(
+        title=_(u"Title"),
+        default=u"",
+        required=True,
+    )
+
     directives.widget(
         "content_aggregation_sources",
         pattern_options={
@@ -109,8 +115,6 @@ class INewsletterIssue(model.Schema):
         required=False,
     )
 
-    # Make sure you import:
-    # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
     directives.widget(exclude_all_subscribers=SingleCheckBoxBoolFieldWidget)
     exclude_all_subscribers = schema.Bool(
         title=_(u"ENL_label_excludeAllSubscribers", default=u"Exclude all subscribers"),
@@ -135,7 +139,6 @@ class INewsletterIssue(model.Schema):
         required=True,
     )
 
-    # Make sure to import: plone.app.textfield
     prologue = textfield.RichText(
         title=_(u"ENL_label_default_header", default=u"Prologue"),
         description=_(
@@ -148,7 +151,6 @@ class INewsletterIssue(model.Schema):
         required=False,
     )
 
-    # Make sure to import: plone.app.textfield
     epilogue = textfield.RichText(
         title=_(u"ENL_label_default_footer", default=u"Epilogue"),
         description=_(
@@ -161,8 +163,6 @@ class INewsletterIssue(model.Schema):
         required=False,
     )
 
-    # Make sure you import:
-    # plone.app.z3cform.widget.SingleCheckBoxBoolFieldWidget
     directives.widget(hide_image=SingleCheckBoxBoolFieldWidget)
     hide_image = schema.Bool(
         title=_(u"label_issueHideImage", default=u"Hide banner image."),

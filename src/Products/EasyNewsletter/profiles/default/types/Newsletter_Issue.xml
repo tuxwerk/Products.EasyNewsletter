@@ -36,10 +36,10 @@
     -->
     <element value="plone.namefromtitle" />
     <element value="plone.shortname" />
-    <element value="plone.ownership" />
+    <!-- <element value="plone.ownership" /> -->
     <element value="plone.publication" />
-    <element value="plone.categorization" />
-    <element value="plone.basic" />
+    <!-- <element value="plone.categorization" /> -->
+    <!-- <element value="plone.basic" /> -->
     <!-- <element value="plone.allowdiscussion"/> -->
     <!-- <element value="plone.excludefromnavigation"/> -->
     <element value="plone.locking" />
