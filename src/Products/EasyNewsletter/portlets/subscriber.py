@@ -106,15 +106,6 @@ class INewsletterSubscriberPortlet(IPortletDataProvider):
         required=False,
     )
 
-    show_unsubscribe = schema.Bool(
-        title=_(
-            u"label_newletter_show_unsubscribe_link",
-            default=u"Display an unsubscribe link in portlet footer",
-        ),
-        default=True,
-        required=False,
-    )
-
     additional_info = schema.Text(
         title=_(
             u"label_subscriber_portlet_additional_info",
@@ -143,7 +134,6 @@ class Assignment(base.Assignment):
     query_salutation = True
     query_name_prefix = False
     query_organization = False
-    show_unsubscribe = True
     additional_info = u""
 
     def __init__(
@@ -156,7 +146,6 @@ class Assignment(base.Assignment):
         query_salutation=True,
         query_name_prefix=False,
         query_organization=False,
-        show_unsubscribe=True,
         additional_info=u"",
     ):
 
@@ -168,7 +157,6 @@ class Assignment(base.Assignment):
         self.query_salutation = query_salutation
         self.query_name_prefix = query_name_prefix
         self.query_organization = query_organization
-        self.show_unsubscribe = show_unsubscribe
         self.additional_info = additional_info
 
     @property
@@ -223,7 +211,6 @@ class AddForm(base.AddForm):
             query_salutation=data.get("query_salutation", ""),
             query_name_prefix=data.get("query_name_prefix", ""),
             query_organization=data.get("query_organization", ""),
-            show_unsubscribe=data.get("show_unsubscribe", ""),
             additional_info=data.get("additional_info", ""),
         )
 

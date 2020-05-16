@@ -14,14 +14,6 @@
     permission="zope2.Public"
     />
 
-  <browser:page
-    name="unsubscribe-form"
-    for="Products.EasyNewsletter.content.newsletter.INewsletter"
-    class=".newsletter_unsubscribe_form.NewsletterUnsubscribeForm"
-    template="newsletter_unsubscribe_form.pt"
-    permission="zope2.Public"
-    />
-
    <browser:page
      name="send-issue"
      for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
