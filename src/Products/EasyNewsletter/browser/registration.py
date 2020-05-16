@@ -87,44 +87,46 @@ class SubscriberView(BrowserView):
         enl_registration_tool = queryUtility(IENLRegistrationTool, "enl_registration_tool")
         # use password reset tool to create a hash
         pwr_data = self._requestReset(subscriber)
+        # create a unique hash
         hashkey = pwr_data["randomstring"]
-        # FIXME: what if the hash key is in enl_registration_tool ???
-        if hashkey not in enl_registration_tool.objectIds():
-            enl_registration_tool[hashkey] = RegistrationData(
-                hashkey, **subscriber_data
-            )
-            msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
-                "${portal_url}", self.portal_url.strip("http://")
-            )
-            confirmation_url = (
-                self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
-            )
-            confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
-            msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
-                "${newsletter_title}", newsletter_container.title
-            )
-            msg_text = msg_text.replace("${subscriber_email}", subscriber)
-            msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
-            settings = get_portal_mail_settings()
+        while hashkey in enl_registration_tool.objectIds():
+            hashkey = pwr_data["randomstring"]
 
-            msg = emails.Message(
-                text=msg_text,
-                subject=msg_subject,
-                mail_from=settings.email_from_address,
-                mail_to=subscriber,
-            )
-            self.portal.MailHost.send(msg.as_string())
+        enl_registration_tool[hashkey] = RegistrationData(
+            hashkey, **subscriber_data
+        )
+        msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
+            "${portal_url}", self.portal_url.strip("http://")
+        )
+        confirmation_url = (
+            self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
+        )
+        confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
+        msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
+            "${newsletter_title}", newsletter_container.title
+        )
+        msg_text = msg_text.replace("${subscriber_email}", subscriber)
+        msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
+        settings = get_portal_mail_settings()
 
-            messages.addStatusMessage(
-                _(
-                    "Your email has been registered. \
+        msg = emails.Message(
+            text=msg_text,
+            subject=msg_subject,
+            mail_from=settings.email_from_address,
+            mail_to=subscriber,
+        )
+        self.portal.MailHost.send(msg.as_string())
+
+        messages.addStatusMessage(
+            _(
+                "Your email has been registered. \
                 A confirmation email was sent to your address. Please check \
                 your inbox and click on the link in the email in order to \
                 confirm your subscription."
-                ),
-                "info",
-            )
-            return self._msg_redirect(newsletter_container)
+            ),
+            "info",
+        )
+        return self._msg_redirect(newsletter_container)
 
     def confirm_subscriber(self):
         hashkey = self.request.get("hkey")
