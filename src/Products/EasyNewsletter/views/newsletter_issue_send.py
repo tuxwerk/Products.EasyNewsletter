@@ -14,6 +14,7 @@ from Products.Five.browser import BrowserView
 from Products.MailHost.interfaces import IMailHost
 from zope.component import getUtility
 from zope.component import subscribers
+from logging import ERROR
 
 import emails
 import emails.loader
@@ -147,7 +148,7 @@ class NewsletterIssueSend(BrowserView):
             m.transform(
                 images_inline=True, # FIXME: Add option to newsletter
                 base_url=self.context.absolute_url(),
-                cssutils_logging_level=logging.ERROR,
+                cssutils_logging_level=ERROR,
             )
             message_string = m.as_string()
             if 'HTTPLoaderError' in message_string:
