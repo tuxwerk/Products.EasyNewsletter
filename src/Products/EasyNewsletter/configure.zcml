@@ -16,12 +16,10 @@
   <include package=".queue" />
   <include package=".utils" />
   <include package=".vocabularies" />
-  <include package=".upgrades" />
   <include package=".views" />
 
   <include file="indexers.zcml" />
   <include file="profiles.zcml" />
-  <include file="upgrades.zcml" />
   <include file="permissions.zcml" />
 
   <!-- -*- extra stuff goes here -*- -->
