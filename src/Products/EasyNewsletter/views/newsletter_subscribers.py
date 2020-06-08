@@ -20,6 +20,7 @@ class NewsletterSubscribers(BrowserView):
             self.delete()
         return self.index()
 
+    # FIXME: use get_recipients method in newsletter
     def subscribers(self):
         query = dict(
             portal_type="Newsletter Subscriber",
@@ -60,21 +61,6 @@ class NewsletterSubscribers(BrowserView):
                     organization=brain.organization,
                 )
             )
-
-        # External subscribers
-        ext_subcriber_source = self.context.get('subscriber_source')
-        if ext_subcriber_source:
-            if ext_subcriber_source != "default":
-                try:
-                    external_source = getUtility(
-                        ISubscriberSource, name=ext_subcriber_source
-                    )
-                except ComponentLookupError:
-                    log.warn(_(u'label_ext_subcriber_source_failed', default=u"External subscriber lookup failed"))
-                else:
-                    for subscriber in external_source.getSubscribers(self.context):
-                        subscriber["source"] = ext_subcriber_source
-                        subscribers.append(subscriber)
 
         return subscribers
 

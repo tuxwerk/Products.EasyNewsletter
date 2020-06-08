@@ -16,8 +16,6 @@ from z3c import relationfield
 from zope.component import getUtility
 from zope.interface import implementer
 
-
-
 def get_default_output_template():
     registry = getUtility(IRegistry)
     templates_keys = list(registry.get("Products.EasyNewsletter.output_templates"))

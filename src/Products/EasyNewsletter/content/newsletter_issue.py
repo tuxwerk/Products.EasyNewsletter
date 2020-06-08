@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
-from .newsletter import get_content_aggregation_sources_base_path
-from .newsletter import INewsletter
+
+from DateTime import DateTime
+from Products.EasyNewsletter import _
+from Products.EasyNewsletter import log
+from Products.EasyNewsletter.content.newsletter import INewsletter
+from Products.EasyNewsletter.content.newsletter import get_content_aggregation_sources_base_path
+from Products.EasyNewsletter.interfaces import IIssueDataFetcher
+from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
+from datetime import datetime
+from logging import ERROR
 from persistent.dict import PersistentDict
+from plone import api
 from plone import schema
 from plone.app import textfield
 from plone.app.z3cform.widget import SingleCheckBoxBoolFieldWidget
@@ -9,16 +18,16 @@ from plone.autoform import directives
 from plone.dexterity.content import Container
 from plone.namedfile import field as namedfile
 from plone.supermodel import model
-from Products.EasyNewsletter import _
-from Products.EasyNewsletter.interfaces import IReceiversPostSendingFilter
 from z3c import relationfield
 from zope.annotation.interfaces import IAnnotations
 from zope.component import subscribers
-from zope.interface import implementer
 from zope.interface import Interface
+from zope.interface import implementer
 from zope.interface import provider
 from zope.schema.interfaces import IContextAwareDefaultFactory
-
+import emails
+import emails.loader
+import transaction
 
 SEND_STATUS_KEY = 'PRODUCTS_EASYNEWSLETTER_SEND_STATUS'
 
@@ -222,7 +231,7 @@ class NewsletterIssue(Container):
         return receivers
 
     def has_image(self):
-        has_image = bool(self.get_image_src())
+        has_image = bool(self.get_banner_src())
         return has_image
 
     def has_logo(self):
@@ -230,21 +239,110 @@ class NewsletterIssue(Container):
         has_logo = getattr(enl.aq_explicit, 'logo', None)
         return has_logo
 
+    def send(self, test=False, recipients=None):
+        # check for workflow state
+        current_state = api.content.get_state(obj=self)
+        if not test and current_state != 'sending':
+            raise ValueError('Executed send in wrong review state!')
+
+        # get hold of the parent Newsletter object#
+        enl = self.get_newsletter()
+        sender_name = enl.sender_name
+        sender_email = enl.sender_email
+        receivers = test and recipients or self.get_receivers()
+
+        self.mail_host = api.portal.get_tool('MailHost')
+        log.info('Using mail delivery service "%r"' % self.mail_host)
+
+        send_counter = 0
+        send_error_counter = 0
+
+        issue_data_fetcher = IIssueDataFetcher(self)
+        # get issue data
+        issue_data = issue_data_fetcher()
+        status_adapter = ISendStatus(self)
+
+        # prepare raw email
+        m = emails.Message(
+            subject=issue_data['subject'],
+            mail_from=(sender_name, sender_email),
+        )
+
+        for receiver in receivers:
+            send_status = {
+                'successful': None,
+                'error': None,
+                'datetime': datetime.now(),
+            }
+            html_text = issue_data_fetcher.personalize(
+                receiver, issue_data['body_html']
+            )
+            plain_text = issue_data_fetcher.create_plaintext_message(html_text)
+            m.set_html(html=html_text)
+            m.set_text(text=plain_text)
+            m.set_mail_to((receiver['fullname'], receiver['email']))
+            m.transform(
+                images_inline=True, # FIXME: Add option to newsletter
+                base_url=self.absolute_url(),
+                cssutils_logging_level=ERROR,
+            )
+            message_string = m.as_string()
+            if 'HTTPLoaderError' in message_string:
+                log.exception(u"Transform message failed: {0}".format(message_string))
+            try:
+                self.mail_host.send(message_string, immediate=True)
+                send_status['successful'] = True
+                log.info('Sent newsletter to "%s"' % receiver['email'])
+                send_counter += 1
+            except Exception as e:  # noqa
+                send_status['successful'] = False
+                send_status['error'] = e
+                log.exception(
+                    'Sending newsletter to "%s" failed, with error "%s"!'
+                    % (receiver['email'], e)
+                )
+                send_error_counter += 1
+
+            if test:
+                continue
+
+            # Update receivers information to annotations on each mail
+            receiver['status'] = send_status
+            status_adapter.add_records(receivers)
+            transaction.commit()
+
+        log.info(
+            'Newsletter was sent to (%s) receivers. (%s) errors occurred!'
+            % (send_counter, send_error_counter)
+        )
+
+        if test:
+            return
+
+        # change status only for a 'regular' send operation (not 'is_test')
+        api.content.transition(obj=self, transition='sending_completed')
+        # DONT SET THIS
+        #self.context.setEffectiveDate(DateTime())
+        #self.context.reindexObject(idxs=['effective'])
+
     # XXX we should cache this call, it's called twice
-    def get_image_src(self):
+    def get_banner_src(self):
         """ find banner image, if not set on Issue we use the one from the Newsletter
         """
         img_src = ""
         if self.hide_image:
             return img_src
+
         scales = self.restrictedTraverse('@@images')
         if scales.scale('banner', scale='mini'):
-            img_src = self.absolute_url() + "/@@images/banner"
+            img_src = self.absolute_url() + "/@@images/banner/newsletter_banner"
             return img_src
+
         enl = self.get_newsletter()
         scales = enl.restrictedTraverse('@@images')
         if scales.scale('banner', scale='mini'):
-            img_src = enl.absolute_url() + "/@@images/banner"
+            img_src = enl.absolute_url() + "/@@images/banner/newsletter_banner"
+
         return img_src
 
     def getHeader(self):

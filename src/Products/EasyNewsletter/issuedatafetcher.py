@@ -112,11 +112,11 @@ class DefaultDXIssueDataFetcher(object):
         self._issue_data = {}
         self._issue_data["title"] = self.issue.title
         self._issue_data["description"] = self.issue.description
-        self._issue_data["banner_src"] = self.issue.get_image_src()
+        self._issue_data["banner_src"] = self.issue.get_banner_src()
         scales = self.enl.restrictedTraverse("@@images")
         logo_src = ""
         if scales.scale("logo", scale="mini"):
-            logo_src = self.enl.absolute_url() + "/@@images/logo"
+            logo_src = self.enl.absolute_url() + "/@@images/logo/newsletter_logo"
         self._issue_data["logo_src"] = logo_src
         self._issue_data["date"] = self.plone_view.toLocalizedTime(
             self.issue.effective(), long_format=0

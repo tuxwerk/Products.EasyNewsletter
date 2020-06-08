@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from ..content.newsletter import INewsletter
 from plone import api
 from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider

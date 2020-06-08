@@ -73,4 +73,13 @@
     </value>
   </record>
 
+  <records
+      interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+      prefix="plone">
+    <value key="allowed_sizes" purge="false">
+      <element>newsletter_logo 200:0</element>
+      <element>newsletter_banner 600:0</element>
+    </value>
+  </records>
+
 </registry>
