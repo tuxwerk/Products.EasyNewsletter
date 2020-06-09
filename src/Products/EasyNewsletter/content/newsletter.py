@@ -283,9 +283,9 @@ class INewsletter(model.Schema):
             u"Subscriber confirmation mail text",
         ),
         description=_(
-            u"Text used for confirmation email. You can customize \
-            the text, but it should include the placeholders: \
-            ${portal_url}, ${subscriber_email} and \
+            u"Text used for confirmation email. It may \
+            include the following placeholders: \
+            ${newsletter_title}, ${subscriber_email} and \
             ${confirmation_url}!",
         ),
         default=_(

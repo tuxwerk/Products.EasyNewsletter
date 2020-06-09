@@ -100,13 +100,11 @@ class SubscriberView(BrowserView):
             hashkey, **subscriber_data
         )
         msg_subject = newsletter_container.subscriber_confirmation_mail_subject
-        confirmation_url = (
+        confirmation_url = protect.utils.addTokenToUrl(
             self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
         )
-        confirmation_url = protect.utils.addTokenToUrl(confirmation_url)
-        msg_text = newsletter_container.subscriber_confirmation_mail_text.replace(
-            "${newsletter_title}", newsletter_container.title
-        )
+        msg_text = newsletter_container.subscriber_confirmation_mail_text
+        msg_text = msg_text.replace("${newsletter_title}", newsletter_container.title)
         msg_text = msg_text.replace("${subscriber_email}", subscriber)
         msg_text = msg_text.replace("${confirmation_url}", confirmation_url)
         settings = get_portal_mail_settings()
@@ -139,9 +137,7 @@ class SubscriberView(BrowserView):
         messages = IStatusMessage(self.request)
         if regdataobj:
             portal = api.portal.get()
-            easynewsletter = portal.unrestrictedTraverse(
-                regdataobj.path_to_easynewsletter
-            )
+            easynewsletter = portal.unrestrictedTraverse(regdataobj.path_to_easynewsletter)
             email = regdataobj.subscriber
             plone_utils = api.portal.get_tool(name="plone_utils")
             subscriber_id = plone_utils.normalizeString(email)
