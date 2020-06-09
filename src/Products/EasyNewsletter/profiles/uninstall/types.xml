@@ -3,4 +3,7 @@
     meta_type="Plone Types Tool"
     name="portal_types">
   <property name="title">Controls the available content types in your portal</property>
+  <object remove="true" meta_type="Dexterity FTI" name="Newsletter"/>
+  <object remove="true" meta_type="Dexterity FTI" name="Newsletter Issue"/>
+  <object remove="true" meta_type="Dexterity FTI" name="Newsletter Subscriber"/>
 </object>

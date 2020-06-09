@@ -19,7 +19,7 @@ class NewslettersVocabulary(object):
                 SimpleTerm(
                     value=newsletter.getPath(),
                     token=str(newsletter.getPath()),
-                    title=newsletter.getPath()
+                    title=(newsletter.getPath() + " (" + newsletter.Title + ")")
                 )
             )
 

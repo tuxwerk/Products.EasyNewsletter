@@ -5,12 +5,22 @@
   i18n:domain="EasyNewsletter"
   metal:use-macro="context/main_template/macros/master">
   <body>
-    <metal:block fill-slot="content-core"
-        tal:define="records view/receivers | nothing">
+    <metal:block fill-slot="content-core">
+      <metal:main tal:define="records view/receivers;
+                              records_number python:len(records);
+			      plone_view python:context.restrictedTraverse('@@plone');
+			      Batch python:modules['Products.CMFPlone'].Batch;
+                              b_start python:request.get('b_start',0);
+                              b_size request/b_size|python:100;
+                              batch_base_url here/@@plone_context_state/current_base_url;
+                              batch python:Batch(records, b_size, int(b_start), orphan=1)">
+
       <p tal:condition="not: records"
         i18n:translate="easynewsletter_nonrecords_label">
         There are no statistics available.
       </p>
+
+      <div metal:use-macro="here/batch_macros/macros/navigation" />
 
       <tal:records tal:condition="records">
         <p i18n:translate="easynewsletter_records_label">
@@ -27,7 +37,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="record records">
+            <tr tal:repeat="record batch">
               <td><time class="pat-moment" data-pat-moment="format:calendar;"
                   tal:condition="record/status/datetime | nothing"
                   tal:attributes="title record/status/datetime"
@@ -43,6 +53,11 @@
             </tr>
           </tbody>
         </table>
+
+	<div metal:use-macro="here/batch_macros/macros/navigation" />
+
+	<hr />
+
         <form action="" method="post"
             tal:attributes="action string:${context/absolute_url}/statistics">
           <p i18n:translate="">Successfully sent emails will not be send out again unless you reset the statistics.</p>
@@ -54,6 +69,8 @@
               i18n:attributes="value easynewsletter_reset_statistics_button;" />
         </form>
       </tal:records>
+      </metal:main>
     </metal:block>
+
   </body>
 </html>

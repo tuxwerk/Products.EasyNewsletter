@@ -51,12 +51,14 @@ class NewsletterSubscribersUpload(BrowserView):
         # encoding = plone_utils.getSiteEncoding()
         existing = []
         subscribers = api.content.find(context=self.context,
+                                       depth=1,
                                        portal_type='Newsletter Subscriber')
         for subscriber in subscribers:
             existing.append(subscriber.email.lower())
 
         # messages = IStatusMessage(self.request)
         success = []
+        updated = []
         fail = []
 
         # Show error if no file was specified
@@ -65,7 +67,7 @@ class NewsletterSubscribersUpload(BrowserView):
             msg = _('No file specified.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(
-                context.absolute_url() + '/@@upload_csv')
+                context.absolute_url() + '/subscribers-upload')
 
         reader = UnicodeReader(filename)
         header = next(reader)
@@ -77,7 +79,7 @@ class NewsletterSubscribersUpload(BrowserView):
                 + 'Please correct it and retry.')
             IStatusMessage(self.request).addStatusMessage(msg, type='error')
             return self.request.response.redirect(
-                context.absolute_url() + '/@@upload_csv')
+                context.absolute_url() + '/subscribers-upload')
 
         for subscriber in reader:
             # Check the length of the line
@@ -100,6 +102,8 @@ class NewsletterSubscribersUpload(BrowserView):
                 if email in existing:
                     # If subscriber with email exists, update user info
                     sub = api.content.find(context=self.context,
+                                           depth=1,
+                                           portal_type='Newsletter Subscriber',
                                            email=email)
                     if len(sub) > 1:
                         msg = _('More than one subscriber with this email '
@@ -127,7 +131,7 @@ class NewsletterSubscribersUpload(BrowserView):
                                                              firstname])
                         sub.reindexObject()
                         msg = _('Email existed, updated subscriber.')
-                        success.append(
+                        updated.append(
                             {'salutation': salutation,
                              'name_prefix': name_prefix,
                              'firstname': firstname,
@@ -184,7 +188,7 @@ class NewsletterSubscribersUpload(BrowserView):
                                 'An error occured while creating this subscriber: %s' % str(e)
                         })
 
-        return {'success': success, 'fail': fail}
+        return {'success': success, 'fail': fail, 'updated': updated}
 
 
 class UTF8Recoder:

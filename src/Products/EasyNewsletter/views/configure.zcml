@@ -66,13 +66,6 @@
       />
 
   <browser:page
-      name="copy-as-master"
-      for="Products.EasyNewsletter.content.newsletter_issue.INewsletterIssue"
-      class=".newsletter_issue_copy_as_master.NewsletterIssueCopyAsMaster"
-      permission="zope2.View"
-      />
-
-  <browser:page
       name="newsletter-subscribers"
       for="Products.EasyNewsletter.content.newsletter.INewsletter"
       class=".newsletter_subscribers.NewsletterSubscribers"

@@ -17,6 +17,7 @@
     <state state_id="draft" title="Draft" i18n:attributes="title">
         <exit-transition transition_id="send"/>
         <exit-transition transition_id="make_master"/>
+
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Manager</permission-role>
@@ -51,6 +52,7 @@
     <state state_id="sending" title="Sending" i18n:attributes="title">
         <exit-transition transition_id="sending_completed"/>
         <exit-transition transition_id="revert_sending"/>
+
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Anonymous</permission-role>
@@ -82,7 +84,6 @@
     </state>
 
     <state state_id="sent" title="Sent" i18n:attributes="title">
-        <exit-transition transition_id="revert_sending"/>
         <permission-map name="Access contents information"
                         acquired="False">
             <permission-role>Anonymous</permission-role>
@@ -146,21 +147,6 @@
     </state>
 
 
-    <transition transition_id="make_draft"
-                title="Make draft" i18n:attributes="title"
-                new_state="draft"
-                trigger="USER"
-                before_script=""
-                after_script="">
-        <action
-            url="%(content_url)s/content_status_modify?workflow_action=make_draft"
-            category="workflow">Make draft
-        </action>
-        <guard>
-            <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
-        </guard>
-    </transition>
-
     <transition transition_id="revert_sending"
                 title="Revert sending" i18n:attributes="title"
                 new_state="draft"
@@ -172,7 +158,7 @@
             category="workflow">Revert sending
         </action>
         <guard>
-            <guard-permission>Manage portal</guard-permission>
+            <guard-permission>Products.EasyNewsletter: Queue NewsletterIssue</guard-permission>
         </guard>
     </transition>
 
@@ -182,11 +168,8 @@
                 trigger="USER"
                 before_script=""
                 after_script="">
-        <action url="%(content_url)s/content_status_modify?workflow_action=send"
-                category="workflow">Send
-        </action>
         <guard>
-            <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
+            <guard-permission>Products.EasyNewsletter: Queue NewsletterIssue</guard-permission>
         </guard>
     </transition>
 
@@ -196,12 +179,8 @@
                 trigger="USER"
                 before_script=""
                 after_script="">
-        <action url="%(content_url)s/content_status_modify?workflow_action=sending_completed"
-                category="workflow">Sending completed
-        </action>
-        <guard>
-            <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
-        </guard>
+      <guard>
+      </guard>
     </transition>
 
     <transition transition_id="make_master"
@@ -215,7 +194,7 @@
             category="workflow">Make master
         </action>
         <guard>
-            <guard-expression>python:here.REQUEST.get('enlwf_guard', False)</guard-expression>
+	  <guard-permission>Products.EasyNewsletter: Manage Newsletters</guard-permission>
         </guard>
     </transition>
 
@@ -277,4 +256,5 @@
         <guard>
         </guard>
     </variable>
+
 </dc-workflow>

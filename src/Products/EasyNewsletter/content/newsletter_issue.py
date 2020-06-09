@@ -28,6 +28,11 @@ from zope.schema.interfaces import IContextAwareDefaultFactory
 import emails
 import emails.loader
 import transaction
+# from zope.component import adapter
+# from Products.DCWorkflow.interfaces import IAfterTransitionEvent
+# from Products.DCWorkflow.interfaces import IBeforeTransitionEvent
+# from Products.DCWorkflow.interfaces import ITransitionEvent
+# from Products.DCWorkflow.events import TransitionEvent
 
 SEND_STATUS_KEY = 'PRODUCTS_EASYNEWSLETTER_SEND_STATUS'
 
@@ -39,6 +44,15 @@ def get_default_output_template(parent):
     if INewsletter.providedBy(parent) and parent.__parent__:
         return parent.output_template
 
+# @adapter(IAfterTransitionEvent)
+# def transition_event(object, event):
+#     print("iuggiuzfgzuifgzuifzuztfuzifuzfzufzufzui")
+#     print(event)
+#     print(object)
+
+#     if not INewsletterIssue.providedBy(event.object):
+#         print(event.object)
+#     return
 
 @provider(IContextAwareDefaultFactory)
 def get_default_prologue(parent):
@@ -240,12 +254,6 @@ class NewsletterIssue(Container):
         return has_logo
 
     def send(self, test=False, recipients=None):
-        # check for workflow state
-        current_state = api.content.get_state(obj=self)
-        if not test and current_state != 'sending':
-            raise ValueError('Executed send in wrong review state!')
-
-        # get hold of the parent Newsletter object#
         enl = self.get_newsletter()
         sender_name = enl.sender_name
         sender_email = enl.sender_email
@@ -269,6 +277,11 @@ class NewsletterIssue(Container):
         )
 
         for receiver in receivers:
+            # check for workflow state
+            if not test and api.content.get_state(obj=self) != 'sending':
+                log.exception(u"Newsletter sending aborted")
+                return
+
             send_status = {
                 'successful': None,
                 'error': None,
@@ -347,29 +360,40 @@ class NewsletterIssue(Container):
 
     def getHeader(self):
         if self.prologue:
-            text = self.prologue.output
-        else:
-            text = u''
-        return text
+            return self.prologue.output
+
+        return u""
 
     def getFooter(self):
         if self.epilogue:
-            text = self.epilogue.output
-        else:
-            text = u''
-        return text
+            return self.epilogue.output
+
+        return u""
 
     def getText(self):
         if self.text:
-            text = self.text.output
-        else:
-            text = u''
-        return text
+            return self.text.output
+
+        return u""
+
+    def receivers_sent(self):
+        return self.receivers_failed() + self.receivers_successful()
+
+    def receivers_total(self):
+        return len(self.status_adapter().get_records())
+
+    def receivers_failed(self):
+        return len(self.status_adapter().get_keys(successful=False))
+
+    def receivers_successful(self):
+        return len(self.status_adapter().get_keys(successful=True))
+
+    def status_adapter(self):
+        return ISendStatus(self)
 
     # bbb: we should print a deprecation message here
     def getOutputTemplate(self):
         return self.output_template
-
 
 class ISendStatus(Interface):
     """Manage send status for newsletter issues."""

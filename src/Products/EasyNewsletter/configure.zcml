@@ -42,13 +42,19 @@
 
 
   <subscriber
-      factory=".subscriber.FilterAlreadySentReceivers"
       for=".content.newsletter_issue.INewsletterIssue"
+      factory=".subscriber.FilterAlreadySentReceivers"
       provides=".interfaces.IReceiversPostSendingFilter"
       />
 
   <subscriber
       handler=".subscriber.reset_send_status"
+      />
+
+  <subscriber
+      for=".content.newsletter_issue.INewsletterIssue
+	   Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+      handler=".content.newsletter_issue.transition_event"
       />
 
 </configure>

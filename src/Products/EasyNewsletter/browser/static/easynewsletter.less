@@ -1,8 +1,3 @@
-// vs code ext: Easy Less:
-// out: easynewsletter.css, compress: true, sourceMap: true
-
-@import (reference) url("https://github.com/plone/plonetheme.barceloneta/raw/master/plonetheme/barceloneta/theme/less/barceloneta.plone.local.less");
-
 @font-face {
   font-family: "easynewsletter";
   src: url("./font/fontello.eot?54032556");
@@ -13,78 +8,17 @@
   font-weight: normal;
   font-style: normal;
 }
-/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
-/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
-/*
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.svg?54032556#fontello') format('svg');
-  }
-}
-*/
 
-// .icon-paper-plane:before { content: '\e800'; }
-// .icon-paper-plane-empty:before { content: '\e801'; }
-// .icon-newspaper:before { content: '\e802'; }
-// .icon-user:before { content: '\e803'; }
-// .icon-file-code:before { content: '\e804'; }
-// .icon-docs:before { content: '\e805'; }
-// .icon-sliders:before { content: '\e806'; }
-// .icon-folder-open-empty:before { content: '\e807'; }
-
-// type icons
 .icon-easynewsletter-actions::before {
-  font-family: "easynewsletter" !important;
-  content: "\e800" !important;
-}
-body#visual-portal-wrapper.pat-plone .outer-wrapper {
-  .contenttype-easynewsletter:before {
-    font-family: "easynewsletter" !important;
-    content: "\e800" !important;
-  }
-  .contenttype-enlissue:before {
-    font-family: "easynewsletter" !important;
-    content: "\e802" !important;
-  }
-  .contenttype-enlsubscriber:before {
-    font-family: "easynewsletter" !important;
-    content: "\e803" !important;
-  }
-  .contenttype-enltemplate:before {
-    font-family: "easynewsletter" !important;
-    content: "\e804" !important;
-  }
-}
-// on right on toolbar
-body#visual-portal-wrapper.pat-plone #edit-zone {
-  .contenttype-easynewsletter:after {
-    font-family: "easynewsletter" !important;
-    content: "\e800" !important;
-  }
-  .contenttype-enlissue:after {
-    font-family: "easynewsletter" !important;
-    content: "\e802" !important;
-  }
-  .contenttype-enlsubscriber:after {
-    font-family: "easynewsletter" !important;
-    content: "\e803" !important;
-  }
-  .contenttype-enltemplate:after {
-    font-family: "easynewsletter" !important;
-    content: "\e804" !important;
-  }
+  font-family: "easynewsletter";
+  content: "\e800";
 }
 
 // states
-.state-draft {
-  color: @plone-default-draft-color;
-  &:hover,
-  &:active,
-  &:focus {
-    color: darken(@plone-default-draft-color, 15%);
-  }
-}
+@plone-default-internal-color: #d39105;
+@plone-default-pending-color: #a5a912;
+@plone-default-published-color: #007bb1;
+
 .state-master {
   color: @plone-default-internal-color;
   &:hover,
@@ -110,11 +44,6 @@ body#visual-portal-wrapper.pat-plone #edit-zone {
   }
 }
 
-input.easynewsletter_text {
-  width: 96%;
-  margin-right: 0;
-}
-
 .portletNewsletterSubscriber {
   .portletItem {
     padding: 10px 15px 26px 15px;
@@ -123,8 +52,9 @@ input.easynewsletter_text {
       padding: 0.4em 2px 0 2px;
     }
   }
-  div.field span.required::after {
-    position: absolute;
+  input.easynewsletter_text {
+    width: 96%;
+    margin-right: 0;
   }
   .easynewsletter_additional_info {
     padding: 1em 0;
@@ -139,53 +69,7 @@ input.easynewsletter_text {
 
 }
 
-.template-atct_edit.portaltype-enltemplate #archetypes-fieldname-body textarea {
-  height: 850px;
-  min-width: 800px;
-  font-family: Courier New;
-  font-size: 90%;
-}
-
-.portaltype-newsletter,
-.portaltype-newsletter-issue,
-.portaltype-newsletter-subscriber {
-  #content-core {
-    form {
-      display: inline-block;
-      input {
-        display: inline;
-      }
-      &.fullwith {
-        display: block;
-      }
-      input[name="SearchableText"] {
-        width: auto;
-      }
-    }
-  }
-}
-
-.newsletter.toc-nav {
-  margin: 1em 0 1em 0;
-  border-bottom: 4px solid #eee;
-  > * {
-    border-width: 0px;
-    padding: 4px 10px 4px 10px;
-    text-decoration: none;
-    border-radius: 4px 4px 0 0;
-    border-bottom: 0px solid #fff;
-    background-color: #fff;
-    &.active {
-      border: 1px solid #eee;
-      border-bottom: 0px solid #eee;
-      background-color: #eee;
-    }
-  }
-  li {
-    display: inline-block;
-  }
-}
-
+// views/newsletter_subscribers.pt
 .newsletter.sub-nav {
   margin-bottom: 1em;
 }

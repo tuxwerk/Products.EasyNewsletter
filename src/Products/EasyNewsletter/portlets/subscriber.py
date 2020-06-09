@@ -29,7 +29,6 @@ VALID_TAGS = [
 
 
 def sanitize_html(value):
-
     soup = BeautifulSoup(value, features="lxml")
 
     for tag in soup.findAll(True):
@@ -40,81 +39,59 @@ def sanitize_html(value):
 
 
 class INewsletterSubscriberPortlet(IPortletDataProvider):
-    """
-    """
 
     portlet_title = schema.TextLine(
-        title=_(u"Title for the portlet."), default=u"Newsletter", required=True
+        title=_(u"Title for the portlet."),
+        default=u"Newsletter",
+        required=True,
     )
 
     portlet_description = schema.Text(
-        title=_(u"label_subscriber_portlet_description", default=u"Description"),
+        title=_(u"Description"),
         default=u"",
         required=False,
     )
 
     newsletter = schema.Choice(
-        title=_(u"label_newsletter_path", default=u"Path to Newsletter"),
-        description=_(
-            u"help_newsletter_path",
-            default=u"Search for the accordingly newsletter, choose one and " u"apply.",
-        ),
+        title=_(u"Path to Newsletter"),
         vocabulary="Products.EasyNewsletter.newsletters",
         required=True,
     )
 
     query_salutation = schema.Bool(
-        title=_(
-            u"label_newletter_show_salutation",
-            default=u"Ask for the salutation of the subscriber",
-        ),
-        default=True,
-        required=False,
-    )
-
-    query_name = schema.Bool(
-        title=_(
-            u"label_newletter_show_name", default=u"Ask for the name of the subscriber"
-        ),
+        title=_(u"Ask for the salutation"),
         default=True,
         required=False,
     )
 
     query_firstname = schema.Bool(
-        title=_(
-            u"label_newletter_show_firstname", default=u"Ask for the firstname as well"
-        ),
+        title=_(u"Ask for the firstname"),
         default=False,
         required=False,
     )
 
+    query_name = schema.Bool(
+        title=_(u"Ask for the name"),
+        default=True,
+        required=False,
+    )
+
     query_name_prefix = schema.Bool(
-        title=_(
-            u"label_newletter_show_name_prefix",
-            default=u"Ask for the name prefix (aka title) as well",
-        ),
+        title=_(u"Ask for the name prefix (aka title)"),
         default=False,
         required=False,
     )
 
     query_organization = schema.Bool(
-        title=_(
-            u"label_newletter_show_organization",
-            default=u"Display field to enter company/organization of " "subscriber",
-        ),
+        title=_(u"Ask for the company/organization"),
         default=False,
         required=False,
     )
 
     additional_info = schema.Text(
-        title=_(
-            u"label_subscriber_portlet_additional_info",
-            default=(
-                u"Additional info, like terms and conditions.\n"
-                u"It can contain HTML, the following tags are allowed: {0}".format(
-                    ", ".join(VALID_TAGS)
-                )
-            ),
+        title=_(u"Additional info, like terms and conditions"),
+        description=_(
+            u"It can contain HTML, the following tags are allowed: {0}".format(", ".join(VALID_TAGS))
         ),
         default=u"",
         required=False,

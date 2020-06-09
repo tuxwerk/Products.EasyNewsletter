@@ -69,12 +69,10 @@ class NewsletterIssueSend(BrowserView):
         return self.request.response.redirect(self.context.absolute_url())
 
     def _send_issue_prepare(self):
-        self.request['enlwf_guard'] = True
         api.content.transition(obj=self.context, transition='send')
         # commit the transaction so that identical incoming requests, for
         # whatever reason, will not trigger another send
         transaction.commit()
-        self.request['enlwf_guard'] = False
 
     # FIXME: remove this?
     def send_issue_immediately(self):

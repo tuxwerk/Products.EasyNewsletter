@@ -96,7 +96,5 @@ class SendStatusTests(unittest.TestCase):
         status_adapter.add_records(self.receivers)
         self.assertEquals(len(status_adapter.get_keys()), 3)
         request = self.issue.REQUEST
-        request['enlwf_guard'] = True
         api.content.transition(obj=self.issue, transition='make_master')
         self.assertEquals(len(status_adapter.get_keys()), 0)
-        request['enlwf_guard'] = False

@@ -6,26 +6,30 @@
     <permission name="Products.EasyNewsletter: Add NewsletterSubscriber" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
-      <role name="Owner"/>
-      <role name="Contributor"/>
+      <role name="Editor"/>
     </permission>
-
 
     <permission name="Products.EasyNewsletter: Add NewsletterIssue" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
-      <role name="Owner"/>
-      <role name="Contributor"/>
+      <role name="Editor"/>
     </permission>
-
 
     <permission name="Products.EasyNewsletter: Add Newsletter" acquire="True">
       <role name="Manager"/>
       <role name="Site Administrator"/>
-      <role name="Owner"/>
-      <role name="Contributor"/>
     </permission>
 
+    <permission name="Products.EasyNewsletter: Queue NewsletterIssue" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Reviewer"/>
+    </permission>
+
+    <permission name="Products.EasyNewsletter: Manage Newsletters" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+    </permission>
 
   </permissions>
 </rolemap>

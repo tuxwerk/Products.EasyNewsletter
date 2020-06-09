@@ -11,19 +11,25 @@
         title="Products.EasyNewsletter: Add NewsletterSubscriber"
     />
 
-
     <permission
         id="Products.EasyNewsletter.AddNewsletterIssue"
         title="Products.EasyNewsletter: Add NewsletterIssue"
     />
-
 
     <permission
         id="Products.EasyNewsletter.AddNewsletter"
         title="Products.EasyNewsletter: Add Newsletter"
     />
 
+    <permission
+        id="Products.EasyNewsletter.Manage"
+        title="Products.EasyNewsletter: Manage Newsletters"
+    />
 
+    <permission
+        id="Products.EasyNewsletter.Queue"
+        title="Products.EasyNewsletter: Queue NewsletterIssue"
+    />
 
   </configure>
 

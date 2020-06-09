@@ -7,22 +7,66 @@
   <body>
     <metal:block fill-slot="content-core">
 
-      <div tal:define="drafts view/draft_issues">
-        <div tal:condition="not: drafts"
-          i18n:translate="easynewsletter_nondrafts_label">
-          There are no drafts.
-        </div>
+      <div class="autotabs">
 
-        <ul>
-          <li tal:repeat="draft drafts">
-            <a tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
-                       date python:toLocalizedTime(draft.effective, long_format=0)"
-              tal:content="string:$date ${draft/Title}"
-              tal:attributes="href draft/getURL">Newsletter's title and Date</a>
-            <span class="discreet selectedTag"
-              tal:content="draft/review_state" i18n:translate=""></span>
-          </li>
-        </ul>
+	<nav class="autotoc-nav">
+	  <a class="autotoc-level-1 active" href="#" i18n:translate=""
+	     tal:attributes="href string:${context/absolute_url}/newsletter-drafts">Drafts</a>
+	  <a class="autotoc-level-1" href="#" i18n:translate=""
+	     tal:attributes="href string:${context/absolute_url}/newsletter-masters">Masters</a>
+	  <a class="autotoc-level-1" href="#" i18n:translate=""
+	     tal:attributes="href string:${context/absolute_url}/newsletter-subscribers">Subscribers</a>
+	  <a class="autotoc-level-1" href="#" i18n:translate=""
+	     tal:attributes="href string:${context/absolute_url}/subscribers-upload">Import</a>
+	  <a class="autotoc-level-1" href="#" i18n:translate=""
+	     tal:attributes="href string:${context/absolute_url}/subscribers-download">Export</a>
+	</nav>
+
+	<fieldset>
+          <legend i18n:translate="">Drafts</legend>
+	</fieldset>
+
+	<div tal:define="drafts view/draft_issues;
+			 toLocalizedTime nocall:context/@@plone/toLocalizedTime;">
+          <div tal:condition="not: drafts"
+               i18n:translate="">
+            There are no drafts.
+          </div>
+
+	  <table class="listing" tal:condition="drafts">
+	    <thead>
+              <tr>
+                <th i18n:translate="">Date</th>
+                <th i18n:translate="">Draft name</th>
+                <th i18n:translate="">State</th>
+              </tr>
+            </thead>
+	    <tbody>
+	      <tal:row tal:repeat="item drafts">
+		<tr tal:define="oddrow repeat/item/odd;
+				object item/getObject"
+		    tal:attributes="class python:oddrow and 'odd' or 'even'">
+                  <td tal:content="python:toLocalizedTime(item.modified, long_format=0)" />
+                  <td>
+		    <a tal:content="item/Title" tal:attributes="href item/getURL">Master Name</a>
+		  </td>
+		  <td>
+		    <span tal:content="item/review_state" i18n:translate=""/>
+		    <tal:stats condition="python:item.review_state == 'sending'">
+		      |
+		      <span tal:content="object/receivers_sent" i18n:translate=""/>
+		      /
+		      <span tal:content="object/receivers_total" i18n:translate=""/>
+		      |
+		      <span tal:content="object/receivers_failed" i18n:translate=""/>
+		      <span i18n:translate="">errors</span>
+		    </tal:stats>
+		  </td>
+		</tr>
+	      </tal:row>
+            </tbody>
+	  </table>
+	</div>
       </div>
 
     </metal:block>
