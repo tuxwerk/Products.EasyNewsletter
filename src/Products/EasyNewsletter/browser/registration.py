@@ -58,7 +58,7 @@ class SubscriberView(BrowserView):
         path_to_easynewsletter = self.request.get("newsletter").strip("/")
         newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
         # FIXME: add a disabled registration option for newsletters
-        if newsletter_container.portal_type != "Newsletter":
+        if not INewsletter.providedBy(newsletter_container):
             return self._msg_redirect(newsletter_container)
 
         subscriber = self.request.get("subscriber")
@@ -208,56 +208,15 @@ class RegistrationData(OFS.SimpleItem.Item):
 class UnsubscribeView(BrowserView):
     def __call__(self):
         self.newsletter_url = self.context.absolute_url()
-        subscriber = self.request.get("subscriber")
-
-        if subscriber:
-            self.send_unsubscribe_email(subscriber)
-            return self.request.response.redirect(self.newsletter_url)
-        else:
-            self.form_action = self.newsletter_url + "/unsubscribe"
-            return self.index()
-
-    # FIXME: remove this. we don't need it as the unsubscribe link is in the newsletter
-    def send_unsubscribe_email(self, subscriber):
-        newsletter = self.context
-        catalog = getToolByName(self.context, "portal_catalog")
-        query = {}
-        query["portal_type"] = "Newsletter Subscriber"
-        query["email"] = subscriber
-        results = catalog.unrestrictedSearchResults(query)
-        messages = IStatusMessage(self.request)
-        if results:
-            subscriber_brain = results[0]
-            unsubscribe_url = (
-                self.newsletter_url + "/unsubscribe?subscriber=" + subscriber_brain.UID
-            )
-            msg_text = """%s: %s""" % (newsletter.unsubscribe_string, unsubscribe_url)
-            settings = get_portal_mail_settings()
-            api.portal.send_email(
-                recipient=subscriber,
-                sender=settings.email_from_address,
-                subject=_(u"confirm newsletter unsubscription"),
-                body=msg_text,
-            )
-            messages.addStatusMessage(
-                _("We send you an email, please confirm this unsubscription."), "info"
-            )
-        else:
-            # todo: write an extra error msg if a plone user wants to
-            # unsubscribe himself
-            messages.addStatusMessage(
-                _("Your email address could not be found in subscribers."), "error"
-            )
+        return self.index()
 
     def unsubscribe(self):
-        """
-        """
         if protect is not None:
             alsoProvides(self.request, protect.interfaces.IDisableCSRFProtection)
         putils = getToolByName(self.context, "plone_utils")
         uid = self.request.get("subscriber")
-
         newsletter = self.context
+
         if not INewsletter.providedBy(newsletter):
             putils.addPortalMessage(
                 _("Please use the correct unsubscribe url!"), "error"
