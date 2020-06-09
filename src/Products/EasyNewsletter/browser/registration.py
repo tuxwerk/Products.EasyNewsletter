@@ -57,6 +57,9 @@ class SubscriberView(BrowserView):
         # remove leading slash from paths like: /mynewsletter
         path_to_easynewsletter = self.request.get("newsletter").strip("/")
         newsletter_container = self.portal.unrestrictedTraverse(path_to_easynewsletter)
+        # FIXME: add a disabled registration option for newsletters
+        if newsletter_container.portal_type != "Newsletter":
+            return self._msg_redirect(newsletter_container)
 
         subscriber = self.request.get("subscriber")
         try:
