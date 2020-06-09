@@ -67,7 +67,7 @@
                   <span class="total"
 			i18n:translate="">
                     There are
-                    <span i18n:name="subscribers_count"
+                    <span i18n:name="count"
 			  tal:replace="subscribers_number" />
                     subscribers
                   </span>

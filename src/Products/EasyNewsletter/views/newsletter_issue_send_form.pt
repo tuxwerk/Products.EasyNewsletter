@@ -6,19 +6,12 @@
   metal:use-macro="context/main_template/macros/master">
   <body>
     <metal:block fill-slot="content-core">
-      <a class="link-parent"
-        tal:attributes="href context/aq_parent/absolute_url"
-        i18n:translate="easynewsletter_backtonewsletter_label">
-  Back to newsletter
-      </a>
 
-      <br />
       <form tal:attributes="action string:${context/absolute_url}/send-issue"
             method="post">
         <span tal:replace="structure context/@@authenticator/authenticator" />
 
-        <label for="sender name"
-          i18n:translate="ENL_label_sender">
+        <label for="sender name" i18n:translate="">
            Sender
         </label>
 
@@ -27,8 +20,7 @@
 	  &lt;<span tal:content="view/sender_email" />&gt;
 	</p>
 
-        <label for="subject"
-          i18n:translate="EasyNewsletter_label_subject">
+        <label for="subject" i18n:translate="">
            Subject
         </label>
 
@@ -38,9 +30,8 @@
 
 	<hr />
 
-        <label for="test_receiver"
-          i18n:translate="ENL_label_testEmail">
-           Test email
+        <label for="test_receiver" i18n:translate="">
+           Test email address
         </label>
 
         <input type="text"
@@ -56,9 +47,10 @@
           i18n:attributes="value easynewsletter_test_button;" />
 	<hr />
 
-	<p>
+	<p i18n:translate="">
 	  Newsletter will be sent to
-	  <span tal:content="view/receivers_size" />
+	  <span i18n:name="count"
+		tal:replace="view/receivers_size" />
 	  receivers.
 	</p>
 
@@ -69,7 +61,6 @@
                value="Send Newsletter"
                i18n:attributes="value easynewsletter_send_button;" />
       </form>
-
 
     </metal:block>
   </body>

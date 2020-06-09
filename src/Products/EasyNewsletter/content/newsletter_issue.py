@@ -210,10 +210,6 @@ class INewsletterIssue(model.Schema):
         required=False,
     )
 
-    # directives.order_after(content_aggregation_source="IBasic.title")
-    # directives.order_after(output_template="IRichText.text")
-
-
 def context_property(name):
     def getter(self):
         return getattr(self.context, name)

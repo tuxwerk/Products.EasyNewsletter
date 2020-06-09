@@ -273,10 +273,10 @@ class INewsletter(model.Schema):
     )
 
     directives.order_after(content_aggregation_sources="IBasic.title")
+    directives.order_after(output_template="IBasic.title")
     directives.order_after(test_email="IBasic.title")
     directives.order_after(sender_name="IBasic.title")
     directives.order_after(sender_email="IBasic.title")
-    directives.order_after(output_template="IRichText.text")
 
 
 @implementer(INewsletter)
