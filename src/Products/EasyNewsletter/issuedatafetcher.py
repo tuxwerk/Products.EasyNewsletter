@@ -4,16 +4,14 @@ from html2text import HTML2Text
 from plone import api
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter import log
-from Products.EasyNewsletter.config import PLACEHOLDERS
 from Products.EasyNewsletter.interfaces import IIssueDataFetcher
 from zope.event import notify
 from zope.interface import implementer
 
 import jinja2
 
-
 @implementer(IIssueDataFetcher)
-class DefaultDXIssueDataFetcher(object):
+class IssueDataFetcher(object):
     def __init__(self, issue):
         self.issue = issue
 
@@ -35,8 +33,6 @@ class DefaultDXIssueDataFetcher(object):
         receiver = receiver or {}
         html = self._render_output_html()
         html = self.personalize(receiver, html)
-        for placeholder in PLACEHOLDERS:
-            html = html.replace(u"[[" + placeholder + u"]]", u"")
         soup = BeautifulSoup(html, features="lxml")
         if not disable_filter:
             for node in soup.findAll(True, {"class": "mailonly"}):
@@ -52,12 +48,7 @@ class DefaultDXIssueDataFetcher(object):
     def _fullname(self, receiver):
         fullname = receiver.get("fullname") or ""
         fullname = fullname.strip()
-        if not fullname:
-            try:
-                return self.enl.fullname_fallback
-            except AttributeError:
-                return u"Sir or Madam"
-        return fullname
+        return fullname or self.enl.fullname_fallback
 
     def _salutation(self, receiver):
         return receiver.get("salutation") or u""
@@ -71,10 +62,7 @@ class DefaultDXIssueDataFetcher(object):
     def _unsubscribe_info(self, receiver):
         if "uid" not in receiver:
             return {"link": u"", "text": u"", "html": u""}
-        try:
-            unsubscribe_text = self.enl.unsubscribe_string
-        except AttributeError:
-            unsubscribe_text = "Click here to unsubscribe"
+        unsubscribe_text = self.enl.unsubscribe_string
         unsubscribe_link = "{0}/unsubscribe?subscriber={1}".format(
             self.enl.absolute_url(), receiver["uid"]
         )
@@ -91,10 +79,8 @@ class DefaultDXIssueDataFetcher(object):
         """ Return rendered newsletter
             with header+body+footer (raw html).
         """
-        output_tmpl_id = self.issue.output_template
-        issue_tmpl = self.issue.restrictedTraverse(str(output_tmpl_id))
-        output_html = issue_tmpl.render()
-        return output_html
+        issue_tmpl = self.issue.restrictedTraverse(str(self.issue.output_template))
+        return issue_tmpl.render()
 
     @property
     def plone_view(self):
@@ -110,19 +96,17 @@ class DefaultDXIssueDataFetcher(object):
         if hasattr(self, "_issue_data"):
             return self._issue_data
         self._issue_data = {}
-        self._issue_data["title"] = self.issue.title
+        self._issue_data["title"]       = self.issue.title
         self._issue_data["description"] = self.issue.description
-        self._issue_data["banner_src"] = self.issue.get_banner_src()
+        self._issue_data["banner_src"]  = self.issue.get_banner_src()
         scales = self.enl.restrictedTraverse("@@images")
         logo_src = ""
         if scales.scale("logo", scale="mini"):
             logo_src = self.enl.absolute_url() + "/@@images/logo/newsletter_logo"
-        self._issue_data["logo_src"] = logo_src
-        self._issue_data["date"] = self.plone_view.toLocalizedTime(
-            self.issue.effective(), long_format=0
-        )
-        self._issue_data["month"] = self.issue.effective().month()
-        self._issue_data["year"] = self.issue.effective().year()
+        self._issue_data["logo_src"]      = logo_src
+        self._issue_data["date"]          = self.plone_view.toLocalizedTime(self.issue.effective(), long_format=0)
+        self._issue_data["month"]         = self.issue.effective().month()
+        self._issue_data["year"]          = self.issue.effective().year()
         self._issue_data["calendar_week"] = self.issue.effective().strftime("%V")
         return self._issue_data
 
@@ -131,23 +115,23 @@ class DefaultDXIssueDataFetcher(object):
         context = {}
 
         # receiver data:
-        context["receiver"] = receiver
-        context["language"] = self.enl.language
-        context["fullname"] = self._fullname(receiver)
-        context["salutation"] = self._salutation(receiver)
-        context["unsubscribe_info"] = self._unsubscribe_info(receiver)
-        context["UNSUBSCRIBE"] = context["unsubscribe_info"]["html"]
+        context["receiver"]              = receiver
+        context["language"]              = self.enl.language
+        context["fullname"]              = self._fullname(receiver)
+        context["salutation"]            = self._salutation(receiver)
+        context["unsubscribe_info"]      = self._unsubscribe_info(receiver)
+        context["UNSUBSCRIBE"]           = context["unsubscribe_info"]["html"]
         context["SUBSCRIBER_SALUTATION"] = self._subscriber_salutation(receiver)
         # issue_data:
-        context["language"] = self.enl.language
-        context["issue_title"] = issue_data["title"]
-        context["issue_description"] = issue_data["description"]
-        context["banner_src"] = issue_data["banner_src"]
-        context["logo_src"] = issue_data["logo_src"]
-        context["date"] = issue_data["date"]
-        context["month"] = issue_data["month"]
-        context["year"] = issue_data["year"]
-        context["calendar_week"] = issue_data["calendar_week"]
+        context["language"]              = self.enl.language
+        context["issue_title"]           = issue_data["title"]
+        context["issue_description"]     = issue_data["description"]
+        context["banner_src"]            = issue_data["banner_src"]
+        context["logo_src"]              = issue_data["logo_src"]
+        context["date"]                  = issue_data["date"]
+        context["month"]                 = issue_data["month"]
+        context["year"]                  = issue_data["year"]
+        context["calendar_week"]         = issue_data["calendar_week"]
 
         template = jinja2.Template(safe_unicode(text))
         return template.render(**context)
@@ -160,5 +144,4 @@ class DefaultDXIssueDataFetcher(object):
         html_to_text.ul_style_dash = True
         html_to_text.inline_links = False
         html_to_text.wrap_links = False
-        plaintext = html_to_text.handle(text)
-        return plaintext
+        return html_to_text.handle(text)

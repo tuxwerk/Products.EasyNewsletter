@@ -13,8 +13,6 @@ PROJECTNAME = 'EasyNewsletter'
 ENL_ISSUE_TYPES = ['Newsletter Issue']
 ENL_EDITHELPER_TYPES = ['Newsletter', 'Newsletter Issue']
 
-PLACEHOLDERS = ['UNSUBSCRIBE', 'SUBSCRIBER_SALUTATION'] # FIXME: add the other placeholders
-
 SALUTATION = {
     'ms': _(u'label_salutation_ms', 'Ms.'),
     'mr': _(u'label_salutation_mr', 'Mr.'),
@@ -29,21 +27,19 @@ SALUTATION = {
 
 MESSAGE_CODE = {
     'email_added': _(
-        u'email_added',
-        default=u'Your email has been registered. A confirmation email was'
-                u' sent to your address. Please check your inbox and click '
-                u' on the link in the email in order to confirm your'
-                u' subscription.'
+        u'Your email has been registered. A confirmation email was'
+        u' sent to your address. Please check your inbox and click '
+        u' on the link in the email in order to confirm your'
+        u' subscription.'
     ),
     'invalid_email': _(
-        u'invalid_email', default=u'Please enter a valid email address.'),
+        u'Please enter a valid email address.'),
     'email_exists': _(
-        u'email_exists', default=u'Your email address is already registered.'),
+        u'Your email address is already registered.'),
     'invalid_hashkey': _(
-        u'invalid_hashkey', default=u'Please enter a valid email address.'),
+        u'Please enter a valid email address.'),
     'subscription_confirmed': _(
-        u'subscription_confirmed',
-        default=u'Your subscription was successfully confirmed.'),
+        =u'Your subscription was successfully confirmed.'),
 }
 
 EMAIL_RE = re.compile(

@@ -169,7 +169,7 @@ class SubscriberView(BrowserView):
                 )
             return self._msg_redirect(easynewsletter)
         else:
-            messages.addStatusMessage(_("Please enter a valid email address."), "error")
+            messages.addStatusMessage(MESSAGE_CODE["invalid_hashkey"], "error")
         return self.request.response.redirect(self.context.absolute_url())
 
     def _requestReset(self, userid):  # noqa
@@ -187,6 +187,7 @@ class SubscriberView(BrowserView):
         pwrtool._requests[randomstring] = (userid, expiry)
         # clear out untouched records > 10 days old this is a cheap sort of
         # automatic clearing
+        # FIXME: move this to an background job
         pwrtool.clearExpired(10)
         pwrtool._p_changed = 1
         retval = {}
