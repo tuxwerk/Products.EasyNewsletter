@@ -36,7 +36,8 @@ class NewsletterIssueAggregateContent(BrowserView):
                 "brains_count": len(sresults),
             }
 
-            template_id = source_obj.aggregation_template
+            template_id = source_obj.aggregation_template or "aggregation_generic_listing"
+            print(template_id)
             template_obj = portal.restrictedTraverse(str(template_id))
             results_text += template_obj(result_info=result_info)
         return safe_unicode(results_text)

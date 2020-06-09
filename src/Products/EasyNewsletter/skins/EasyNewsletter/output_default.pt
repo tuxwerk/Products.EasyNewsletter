@@ -55,7 +55,7 @@
       .footerContent a{
         color: #ccc;
       }
-      .footerContentDynamic{padding-left: 20px; vertical-align: middle;}
+      .footerContentDynamic{background-color: #0083be; padding-left: 20px; vertical-align: middle;}
       .footerContentStatic{color:#555555; background-color:#FFFFFF;}
 
       /*////// MOBILE STYLES //////*/
@@ -164,9 +164,9 @@
                         <img class="flexibleImage" width="200" style="max-width:200px;" src="{{logo_src}}" />
                       </td>
                     </tr>
-                    <tr tal:condition="has_image" height="200">
-                      <td class="headerContent" style="height:200px !important;width:600;" width="600">
-                        <img class="headerImage campaign-icon" width="600" height="200" style="max-width:600px;max-height:200px;" src="{{banner_src}}" />
+                    <tr tal:condition="has_image">
+                      <td class="headerContent" style="width:600;" width="600">
+                        <img class="headerImage campaign-icon" width="600" style="max-width:600px;" src="{{banner_src}}" />
                       </td>
                     </tr>
                   </tbody>
@@ -264,11 +264,11 @@
 
                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
                         <tr>
-                          <td valign="middle" bgcolor="#0083be" style="color:#FFFFFF;" class="footerContentDynamic">
+                          <td class="footerContentDynamic">
                           </td>
                         </tr>
                         <tr tal:condition="context/getFooter">
-                          <td bgcolor="#FFFFFF" class="footerContentStatic" tal:content="structure context/getFooter">
+                          <td class="footerContentStatic" tal:content="structure context/getFooter">
 
                             <table border="0" cellpadding="10" cellspacing="0" width="100%">
                               <tr>
