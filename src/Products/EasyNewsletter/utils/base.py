@@ -6,12 +6,6 @@ from AccessControl.User import Super as BaseUnrestrictedUser
 from Products.CMFPlone.utils import safe_unicode
 from Products.EasyNewsletter.utils.mail import get_email_charset
 
-
-def safe_portal_encoding(string):
-    charset = get_email_charset()
-    return safe_unicode(string).encode(charset)
-
-
 def execute_under_special_role(portal, role, function, *args, **kwargs):
     """ Execute code under special role priviledges.
     Example how to call::

@@ -17,7 +17,6 @@
   <include package=".vocabularies" />
   <include package=".views" />
 
-  <include file="indexers.zcml" />
   <include file="profiles.zcml" />
   <include file="permissions.zcml" />
 
