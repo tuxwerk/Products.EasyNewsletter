@@ -241,8 +241,7 @@ class NewsletterIssue(Container):
         return receivers
 
     def has_image(self):
-        has_image = bool(self.get_banner_src())
-        return has_image
+        return bool(self.get_banner_src())
 
     def has_logo(self):
         enl = self.get_newsletter()
@@ -354,23 +353,27 @@ class NewsletterIssue(Container):
 
         return img_src
 
-    def getHeader(self):
+    def getPrologue(self):
         if self.prologue:
             return self.prologue.output
 
-        return u""
-
-    def getFooter(self):
+    def getEpilogue(self):
         if self.epilogue:
             return self.epilogue.output
 
-        return u""
+    def getFooter(self):
+        enl = self.get_newsletter()
+        if enl.footer:
+            return enl.footer.output
 
     def getText(self):
         if self.text:
             return self.text.output
 
         return u""
+
+    def getCustomCSS(self):
+        return self.get_newsletter().custom_css
 
     def receivers_sent(self):
         return self.receivers_failed() + self.receivers_successful()

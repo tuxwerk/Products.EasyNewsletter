@@ -44,60 +44,65 @@ class INewsletter(model.Schema):
     """ Marker interface and Dexterity Python Schema for Newsletter
     """
 
-    # model.fieldset(
-    #     'default',
-    #     label=u'Default',
-    #     fields=[
-    #         'sender_email',
-    #         'sender_name',
-    #         'test_email',
-    #         'content_aggregation_sources',
-    #         'output_template',
-    #     ],
-    # )
-
     model.fieldset(
         "personalization",
         label=_(u"Personalization"),
         fields=[
             "salutations",
             "fullname_fallback",
-            "unsubscribe_string",
-            "subscriber_confirmation_mail_subject",
-            "subscriber_confirmation_mail_text",
             "default_prologue",
             "default_epilogue",
-            "banner",
-            "logo",
         ],
     )
 
     model.fieldset(
-        "recipients", label=_(u"Recipients"), fields=["exclude_all_subscribers"]
+        "subscription",
+        label=_(u"Subscription"),
+        fields=[
+            "unsubscribe_string",
+            "subscriber_confirmation_mail_subject",
+            "subscriber_confirmation_mail_text",
+        ],
+    )
+
+    model.fieldset(
+        "layout",
+        label=_(u"Layout"),
+        fields=[
+            "logo",
+            "banner",
+            "output_template",
+            "custom_css",
+            "footer",
+        ],
+    )
+
+    model.fieldset(
+        "recipients",
+        label=_(u"Recipients"),
+        fields=["exclude_all_subscribers"]
     )
 
     sender_email = schema.TextLine(
-        title=_(u"ENL_label_senderEmail", default=u"Sender email"),
+        title=_(u"Sender email"),
         description=_(
-            u"ENL_help_senderEmail",
-            default=u"Default for the sender address of the newsletters.",
+            u"Default for the sender address of the newsletters.",
         ),
         required=True,
     )
 
     sender_name = schema.TextLine(
-        title=_(u"ENL_label_senderName", default=u"Sender name"),
+        title=_(u"Sender name"),
         description=_(
-            u"ENL_help_senderName",
-            default=u"Default for the sender name of the newsletters.",
+            u"Default for the sender name of the newsletters.",
         ),
         required=True,
     )
 
     test_email = schema.TextLine(
-        title=_(u"ENL_label_testEmail", default=u"Test email"),
+        title=_(u"Test email"),
         description=_(
-            u"ENL_help_testEmail", default=u"Default for the test email address."
+            u"Default for the test email address."
         ),
         required=True,
     )
@@ -111,12 +116,10 @@ class INewsletter(model.Schema):
     )
     content_aggregation_sources = relationfield.schema.RelationList(
         title=_(
-            u"ENL_content_aggregation_sources_label",
-            default=u"Content aggregation sources",
+            u"Content aggregation sources",
         ),
         description=_(
-            u"ENL_content_aggregation_sources_desc",
-            default=u"Choose sources to aggregate newsletter content from.",
+            u"Choose sources to aggregate newsletter content from.",
         ),
         value_type=relationfield.schema.RelationChoice(
             title=u"content_aggretation_source",
@@ -126,14 +129,13 @@ class INewsletter(model.Schema):
     )
 
     salutations = schema.List(
-        title=_(u"ENL_label_salutations", default=u"Subscriber Salutations."),
+        title=_(u"Subscriber salutations."),
         description=_(
-            u"ENL_help_salutations",
-            default=u'Define here possible salutations for subscriber. \
-                One salutation per line in the form of: "mr|Dear Mr.". \
-                The left hand value "mr" or "ms" is mapped to salutation \
-                of each subscriber and then the right hand value, which \
-                you can customize is used as salutation.',
+            u'Define here possible salutations for subscriber. \
+            One salutation per line in the form of: "mr|Dear Mr.". \
+            The left hand value "mr" or "ms" is mapped to salutation \
+            of each subscriber and then the right hand value, which \
+            you can customize is used as salutation.',
         ),
         default=[u"mr|Dear Mr.", u"ms|Dear Ms.", u"default|Dear"],
         value_type=schema.TextLine(title=u"salutation"),
@@ -142,138 +144,167 @@ class INewsletter(model.Schema):
 
     fullname_fallback = schema.TextLine(
         title=_(
-            u"ENL_label_fullname_fallback",
-            default=u"Fallback for subscribers without a name.",
+            u"Fallback for subscribers without a name.",
         ),
         description=_(
-            u"ENL_help_fullname_fallback",
-            default=u"This will be used if the subscriber has no fullname.",
+            u"This will be used if the subscriber has no fullname.",
         ),
-        default=u"Sir or Madam",
+        default=_(u"Sir or Madam"),
         required=True,
     )
 
     unsubscribe_string = schema.TextLine(
-        title=_(
-            u"ENL_label_unsubscribe_string", default=u"Text for the 'unsubscribe' link"
-        ),
+        title=_(u"Text for the unsubscribe link"),
         description=_(
-            u"ENL_help_unsubscribe_string",
-            default=u"This will replace the placeholder {{UNSUBSCRIBE}}.",
+            u"This will replace the placeholder {{UNSUBSCRIBE}}.",
         ),
-        default=u"Click here to unsubscribe",
+        default=_(u"Click here to unsubscribe"),
         required=True,
     )
 
     banner = namedfile.NamedBlobImage(
-        title=_(u"ENL_image_label", default=u"Banner image"),
+        title=_(u"Banner image"),
         description=_(
-            u"ENL_image_desc",
-            default=u"Banner image, you can include in the templates by"
-            + u"\n adding the {{banner}} placeholder into it."
-            + u" By default it should be 600x200 pixel.",
+            u"Banner image, you can include in the templates by \
+            adding the {{banner}} placeholder into it. \
+            By default it should be 600x200 pixel.",
         ),
         required=False,
     )
 
     logo = namedfile.NamedBlobImage(
-        title=_(u"ENL_logo_label", default=u"Logo image"),
+        title=_(u"Logo image"),
         description=_(
-            u"ENL_logo_desc",
-            default=u"Logo image, you can include in the templates by\n"
-            + u" adding the {{logo}} placeholder into it.",
+            u"Logo image, you can include it in the templates by \
+            adding the {{logo}} placeholder into it.",
         ),
         required=False,
     )
 
-    default_prologue = textfield.RichText(
-        title=_(u"default_prologue", default=u"Default prologue"),
+    footer = textfield.RichText(
+        title=_(u"Footer"),
         description=_(
-            u"default_prologue_description",
-            default=u"This is used as a default \
-                for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+            u"This is used as a the footer in the newsletter.",
+        ),
+        default=u"""
+<table border="0" cellpadding="10" cellspacing="0" width="100%">
+  <tr>
+    <td valign="top" style="color:#FFFFFF;">
+      Publisher:<br />
+      <br />
+      <b>Example organization</b><br />
+      <br />
+      Example street 43<br />
+      04170 Leipzig<br />
+      GERMANY<br />
+      <br />
+      Phone: 03274754983<br />
+      <br />
+    </td>
+    <td valign="top" style="color:#FFFFFF;">
+      Responsible:<br />
+      <br />
+      <b>Jon Doe</b><br />
+      CEO<br />
+      <br />
+      Editorial office:<br />
+      <b>Jonny Cash</b>
+    </td>
+  </tr>
+</table>
+""",
+        required=False,
+    )
+
+    default_prologue = textfield.RichText(
+        title=_(u"Default prologue"),
+        description=_(
+            u"This is used as a default \
+            for new issues. You can use placeholders like\
+            {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
         default=_(u"<p>{{SUBSCRIBER_SALUTATION}}</p><br />"),
         required=False,
     )
 
     default_epilogue = textfield.RichText(
-        title=_(u"default_epilogue", default=u"Default epilogue"),
+        title=_(u"Default epilogue"),
         description=_(
-            u"default_epilogue_description",
-            default=u"This is used as a default \
-                for new issues. You can use placeholders like\
-                {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
+            u"This is used as a default \
+            for new issues. You can use placeholders like \
+            {{SUBSCRIBER_SALUTATION}} and {{UNSUBSCRIBE}} here.",
         ),
-        default=_(u"<h1>Community Newsletter for Plone</h1>\n<p>{{UNSUBSCRIBE}}</p>"),
+        default=_(u"<h1>Newsletter for Plone</h1>\n<p>{{UNSUBSCRIBE}}</p>"),
         required=False,
     )
 
     # FIXME: what does the text mean?
     directives.widget(exclude_all_subscribers=SingleCheckBoxBoolFieldWidget)
     exclude_all_subscribers = schema.Bool(
-        title=_(u"ENL_label_excludeAllSubscribers", default=u"Exclude all subscribers"),
+        title=_(u"Exclude all subscribers"),
         description=_(
-            u"ENL_help_excludeAllSubscribers",
-            default=u"If checked, the newsletter/mailing will not be send  \
-                to all subscribers inside the newsletter. Changing this \
-                setting does not affect already existing issues.",
+            u"If checked, the newsletter/mailing will not be send  \
+            to all subscribers inside the newsletter. Changing this \
+            setting does not affect already existing issues.",
         ),
         required=False,
         default=False,
     )
 
     output_template = schema.Choice(
-        title=_(u"enl_label_output_template", default="Output template"),
+        title=_(u"Output template"),
         description=_(
-            u"enl_help_output_template",
-            default=u"Choose the template to render the email. ",
+            u"Choose the template to render the email. ",
         ),
         vocabulary=u"Products.EasyNewsletter.OutputTemplates",
         defaultFactory=get_default_output_template,
         required=True,
     )
 
+    custom_css = schema.Text(
+        title=_(u"CSS customisation"),
+        description=_(
+            u"Will be included in the output template.",
+        ),
+        default=_(u""),
+        required=False,
+    )
+
     subscriber_confirmation_mail_subject = schema.TextLine(
         title=_(
-            u"ENL_label_subscriber_confirmation_mail_subject",
-            default=u"Subscriber confirmation mail subject",
+            u"Subscriber confirmation mail subject",
         ),
         description=_(
-            u"ENL_description_subscriber_confirmation_mail_subject",
-            default=u"Text used for confirmation email subject. You can \
-                customize the text, but it should include the \
-                placeholder: ${portal_url}!",
+            u"Text used for confirmation email subject. You can \
+            customize the text, but it should include the \
+            placeholder: ${portal_url}!",
         ),
-        default=u'Confirm your subscription on ${portal_url}',
+        default=_(u'Confirm your subscription on ${portal_url}'),
         required=True,
     )
 
     subscriber_confirmation_mail_text = schema.Text(
         title=_(
-            u"ENL_label_subscriber_confirmation_mail_text",
-            default=u"Subscriber confirmation mail text",
+            u"Subscriber confirmation mail text",
         ),
         description=_(
-            u"ENL_description_subscriber_confirmation_mail_text",
-            default=u"Text used for confirmation email. You can customize \
-                the text, but it should include the placeholders: \
-                ${portal_url}, ${subscriber_email} and \
-                ${confirmation_url}!",
+            u"Text used for confirmation email. You can customize \
+            the text, but it should include the placeholders: \
+            ${portal_url}, ${subscriber_email} and \
+            ${confirmation_url}!",
         ),
         default=_(
             u"""\
-            You subscribe to the ${newsletter_title}.\n\n
-            Your registered email is: ${subscriber_email}\n
-            Please click on the link to confirm your subscription: \n
-            ${confirmation_url}"""
+            You subscribe to the ${newsletter_title}.
+
+Your registered email is: ${subscriber_email}
+Please click on the link to confirm your subscription:
+${confirmation_url}"""
         ),
         required=True,
     )
 
     directives.order_after(content_aggregation_sources="IBasic.title")
-    directives.order_after(output_template="IBasic.title")
     directives.order_after(test_email="IBasic.title")
     directives.order_after(sender_name="IBasic.title")
     directives.order_after(sender_email="IBasic.title")
