@@ -99,10 +99,7 @@ class SubscriberView(BrowserView):
         enl_registration_tool[hashkey] = RegistrationData(
             hashkey, **subscriber_data
         )
-        # FIXME: remove it as it's purpose is not known
-        msg_subject = newsletter_container.subscriber_confirmation_mail_subject.replace(
-            "${portal_url}", self.portal_url.strip("http://")
-        )
+        msg_subject = newsletter_container.subscriber_confirmation_mail_subject
         confirmation_url = (
             self.portal_url + "/confirm-subscriber?hkey=" + str(hashkey)
         )

@@ -274,12 +274,7 @@ class INewsletter(model.Schema):
         title=_(
             u"Subscriber confirmation mail subject",
         ),
-        description=_(
-            u"Text used for confirmation email subject. You can \
-            customize the text, but it should include the \
-            placeholder: ${portal_url}!",
-        ),
-        default=_(u'Confirm your subscription on ${portal_url}'),
+        default=_(u'Confirm your newsletter subscription'),
         required=True,
     )
 
