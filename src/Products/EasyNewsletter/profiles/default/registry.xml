@@ -70,6 +70,7 @@
   <record name="plone.types_not_searched" interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema" field="types_not_searched">
     <value purge="false">
       <element>Newsletter Subscriber</element>
+      <element>Newsletter Issue</element>
     </value>
   </record>
 
