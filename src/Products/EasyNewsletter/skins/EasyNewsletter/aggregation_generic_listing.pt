@@ -56,7 +56,8 @@
                         <tr>
                           <td valign="top" class="nestedContainerCell"
                               tal:define="has_image python: enl_helpers.brain_has_lead_image(brain);
-    					  obj_url brain/getURL">
+    					  obj_uid brain/UID;
+					  obj_url string:./resolveuid/${obj_uid}">
 
                             <!-- CONTENT TABLE // -->
                             <table tal:condition="has_image"
@@ -85,9 +86,6 @@
                                     </a>
                                   </h3>
                                   <p tal:condition="brain/Description" tal:content="brain/Description">
-                                    Description
-                                  </p>
-                                  <p tal:content="obj_url">
                                     Description
                                   </p>
                                   <a i18n:translate="read_more"
