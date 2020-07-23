@@ -39,7 +39,7 @@ MESSAGE_CODE = {
     'invalid_hashkey': _(
         u'Please enter a valid email address.'),
     'subscription_confirmed': _(
-        =u'Your subscription was successfully confirmed.'),
+        u'Your subscription was successfully confirmed.'),
 }
 
 EMAIL_RE = re.compile(
