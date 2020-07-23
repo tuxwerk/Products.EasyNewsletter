@@ -76,14 +76,27 @@ Installation
 Documentation
 =============
 
-For more documentation please visit: http://productseasynewsletter.readthedocs.io
+TODO
 
+Message Queue
+=============
 
-Known Issues
-============
+To process queued newsletters setup ClockServer in your Zope instance:
 
-* If parts of the ENLIssue footer show up in the Plone footer, change the footer portlet view name from ``footer`` to ``@@footer``. This issue was fixed in Plone already, but you have to manually update this in an existing site.
+  zope-conf-additional =
+      <clock-server>
+        # plonesite is your plone path
+        # www.mysite.com your site url
+        method /VirtualHostBase/http/www.mysite.com:80/plonesite/VirtualHostRoot/send-queued-newsletter-issues
+        period 300
+        user admin
+        password admin
+      </clock-server>
 
+**Note**: Do not set up this ClockServer on more than one
+instance.  The processing makes sure it's not invoked twice at the
+same time by using file locking. This file locking won't work if you
+configure the clock server on two different servers.
 
 Source Code
 ===========

@@ -23,13 +23,13 @@ class NewsletterQueueSend(BrowserView):
         """Sends queued issues
         """
         LOCKFILE_NAME = os.path.join(tempfile.gettempdir(),
-                                     __name__ + "_" + str(self.context.aq_base))
+                                     __name__ + "_" + str(self.context.aq_base.id)) + ".lock"
 
         try:
             lock = zc.lockfile.LockFile(LOCKFILE_NAME)
         except zc.lockfile.LockError:
-            return "`NewsletterQueueSend` is locked by another process (%r)." % (
-                LOCKFILE_NAME)
+            log.info("EasyNewsletter: NewsletterQueueSend is locked by another process (%r)" % (LOCKFILE_NAME))
+            return "locked"
 
         try:
             issues = api.content.find(
@@ -41,8 +41,9 @@ class NewsletterQueueSend(BrowserView):
             )
             for brain in issues:
                 issue = brain.getObject()
-                print(issue)
+                log.info("EasyNewsletter: send issue %s" % (issue.id))
                 issue.send()
-            return "x"
+            log.info("EasyNewsletter: %d issues sent" % (len(issues)))
+            return (str(len(issues)) + " issues sent")
         finally:
             lock.close()
