@@ -29,7 +29,7 @@ class NewsletterQueueSend(BrowserView):
             lock = zc.lockfile.LockFile(LOCKFILE_NAME)
         except zc.lockfile.LockError:
             log.info("EasyNewsletter: NewsletterQueueSend is locked by another process (%r)" % (LOCKFILE_NAME))
-            return "locked"
+            return
 
         try:
             issues = api.content.find(
@@ -44,6 +44,6 @@ class NewsletterQueueSend(BrowserView):
                 log.info("EasyNewsletter: send issue %s" % (issue.id))
                 issue.send()
             log.info("EasyNewsletter: %d issues sent" % (len(issues)))
-            return (str(len(issues)) + " issues sent")
+            return
         finally:
             lock.close()

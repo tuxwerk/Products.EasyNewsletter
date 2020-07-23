@@ -81,22 +81,9 @@ TODO
 Message Queue
 =============
 
-To process queued newsletters setup ClockServer in your Zope instance:
+Setup a cronjob to process the issues of a plone site:
 
-  zope-conf-additional =
-      <clock-server>
-        # plonesite is your plone path
-        # www.mysite.com your site url
-        method /VirtualHostBase/http/www.mysite.com:80/plonesite/VirtualHostRoot/send-queued-newsletter-issues
-        period 300
-        user admin
-        password admin
-      </clock-server>
-
-**Note**: Do not set up this ClockServer on more than one
-instance.  The processing makes sure it's not invoked twice at the
-same time by using file locking. This file locking won't work if you
-configure the clock server on two different servers.
+ */5 * * * * wget --quiet -O- --user=admin --password=password --auth-no-challenge http://127.0.0.1:8081/plonesite/send-queued-newsletter-issues
 
 Source Code
 ===========
